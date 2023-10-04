@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mesas_screen.dart';
+import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
             child: TabBarView(children: [
               loginScreen(),
-              tela1(),
+              profile(),
               tela2(),
               const ListMesas(),
             ]),
@@ -77,57 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget tela1() {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 20.0),
-          height: 240,
-          padding: const EdgeInsets.all(8.0),
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 10,
-              ),
-            ],
-            shape: BoxShape.circle,
-            gradient: LinearGradient(colors: [
-              Colors.black,
-              Colors.red,
-            ]),
-          ),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw6bPf8LRCQVSu31vZzm93dD55792NLtbdXQ&usqp=CAU')),
-        ),
-        const Text(
-          "Gabriel Marino",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 3,
-            color: Colors.red,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(15),
-          child: Text(
-            "Estudante de Análise e Desenvolvimento de Sistemas na UNICAMP, atualmente no 6° semestre. Desde criança sempre foi fascinado com computadores, o que tornou a escolha de carreira bastante fácil. Entusiasta de voleibol, desenhos japoneses e jogos eletrônicos.",
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
