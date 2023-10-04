@@ -1,62 +1,208 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-loginScreen() {
-  return Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-        child: SizedBox(
-          width: double.infinity,
-          height: 200.0,
-          child: FittedBox(
-            fit: BoxFit.fill,
-            child: Image.network(
-                'https://images.unsplash.com/photo-1655159428752-c700435e9983?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJsYWNrJTIwamFja3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'),
+import '../model/complete_model.dart';
+import '../model/login_data.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return LoginFormState();
+  }
+}
+
+class LoginFormState extends State<LoginForm> {
+  final CompleteModel completeModel = CompleteModel();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final LoginData loginData = LoginData(email: "", password: "");
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Form(
+        key: formKey,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'E aí!',
+                style: GoogleFonts.poppins(
+                  color: Color(0xff1D1617),
+                  fontSize: size.height * 0.02,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.02),
+                child: Text(
+                  'Pronto para Jogar Novamente?',
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff1D1617),
+                    fontSize: size.height * 0.025,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.05),
+                child: emailFormField(),
+              ),
+              passwordFormField(),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.01),
+                child: Text(
+                  "Esqueci minha senha",
+                  style: TextStyle(
+                    color: Color(0xffADA4A5),
+                    decoration: TextDecoration.underline,
+                    fontSize: size.height * 0.018,
+                  ),
+                ),
+              ),
+              submitButton(),
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.04),
+                height: 240,
+                padding: const EdgeInsets.all(8.0),
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 10,
+                    ),
+                  ],
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(colors: [
+                    Colors.black,
+                    Colors.red,
+                  ]),
+                ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: Image.asset('../assets/images/BlackJackApp.png')),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.03),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Não tem uma conta ainda? ",
+                        style: TextStyle(
+                          color: const Color(0xff1D1617),
+                          fontSize: size.height * 0.018,
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: "Cadastrar",
+                            style: TextStyle(
+                              foreground: Paint()
+                                ..shader = const LinearGradient(
+                                  colors: <Color>[
+                                    Color(0xffEEA4CE),
+                                    Color(0xffC58BF2),
+                                  ],
+                                ).createShader(
+                                  const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                                ),
+                              // color: const Color(0xffC58BF2),
+                              fontSize: size.height * 0.018,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('Terms of Service"');
+                              }),
+                      ),
+                    ]),
+              ),
+            ],
           ),
+        ));
+  }
+
+  Widget emailFormField() {
+    return FractionallySizedBox(
+      widthFactor: 0.7,
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        validator: (String? inValue) {
+          if (inValue != null) {
+            if (inValue.isEmpty) {
+              return "Insira um email válido";
+            }
+          }
+          return null;
+        },
+        onSaved: (String? inValue) {
+          loginData.email = inValue ?? "";
+        },
+        decoration: const InputDecoration(
+          hintText: "user@domain.br",
+          labelText: "Email",
         ),
       ),
-      /*ConstrainedBox(
-        constraints: const BoxConstraints(
-            minHeight: 200, minWidth: 200, maxHeight: 300, maxWidth: 1900),
-        child: FittedBox(
-          //child: Text("blackjAPP"),
-          child: TextFormField(
-            initialValue: "AAAAA",
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 0, 0),
-            ),
-          ),
+    );
+  }
+
+  Widget passwordFormField() {
+    return FractionallySizedBox(
+      widthFactor: 0.7,
+      child: TextFormField(
+        obscureText: true,
+        validator: (String? inValue) {
+          if (inValue != null) {
+            if (inValue.length < 10) {
+              return "Mínimo de 10 letras";
+            }
+          }
+          return null;
+        },
+        onSaved: (String? inValue) {
+          loginData.password = inValue ?? "";
+        },
+        decoration: const InputDecoration(
+          labelText: "Senha",
         ),
-      ),*/
-      ConstrainedBox(
-        constraints: const BoxConstraints(
-            minHeight: 200, minWidth: 150, maxHeight: 300, maxWidth: 1900),
-        child: FittedBox(
+      ),
+    );
+  }
+
+  Widget submitButton() {
+    Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsets.only(top: size.height * 0.09),
+      child: FractionallySizedBox(
+        widthFactor: 0.7,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
+          ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 0, 0)),
-                onPressed: () {
-                  // Faça algo com os dados
-                },
-                child: const Text("Jogar!")),
-          ),
-        ),
-      )
-      /*const Padding(
-          padding: EdgeInsets.only(left: 15, right: 15),
-          child: Text(
-            "O aplicativo vai se basear no jogo blackjack/21, onde os jogadores poderão criar suas contas e jogarem rodadas online simultâneas contra outros jogadores. O dealer será uma máquina virtual simples, também conhecida como computador. Além disso, também existirá um histórico de partidas, sistema de pontos e um ranking dos melhores jogadores.",
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
+            padding: EdgeInsets.only(
+                top: size.height * 0.02, bottom: size.height * 0.02),
+            child: Text(
+              "Login",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: size.height * 0.02,
+                  fontStyle: FontStyle.normal),
             ),
           ),
-        ),*/
-    ],
-  );
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              formKey.currentState!.save();
+              loginData.doSomething();
+            }
+          },
+        ),
+      ),
+    );
+  }
 }

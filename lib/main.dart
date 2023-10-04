@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/mesas_screen.dart';
+import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -33,49 +34,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Um objeto da classe PageController gerencia a detecção do gesto de swype.
+  final PageController _controller = PageController(
+    initialPage: 0, // Configura a tela inicial
+  );
+  int localPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-        title: Text(widget.title),
-      ),
-      body: DefaultTabController(
-        length: 4,
-        child: Scaffold(
-          body: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            }),
-            child: TabBarView(children: [
-              loginScreen(),
-              tela1(),
-              tela2(),
-              const ListMesas(),
-            ]),
-          ),
-          appBar: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.gamepad_outlined),
-                text: "Main",
-              ),
-              Tab(
-                icon: Icon(Icons.face),
-                text: "Matheus",
-              ),
-              Tab(
-                icon: Icon(Icons.gamepad_outlined),
-                text: "Projeto",
-              ),
-              Tab(
-                icon: Icon(Icons.gamepad_outlined),
-                text: "Mesas",
-              ),
-            ],
-          ),
-        ),
+      body: PageView(
+        controller: _controller,
+        onPageChanged: (index) {
+          localPage = index;
+        },
+        // O parâmetro "children" recebe todas as páginas
+        children: const [
+          LoginForm(),
+        ],
       ),
     );
   }
