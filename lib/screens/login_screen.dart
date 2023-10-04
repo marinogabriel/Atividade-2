@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget loginScreen() {
+loginScreen() {
   return Column(
     children: [
       Padding(
@@ -15,7 +15,7 @@ Widget loginScreen() {
           ),
         ),
       ),
-      ConstrainedBox(
+      /*ConstrainedBox(
         constraints: const BoxConstraints(
             minHeight: 200, minWidth: 200, maxHeight: 300, maxWidth: 1900),
         child: FittedBox(
@@ -25,10 +25,9 @@ Widget loginScreen() {
             style: const TextStyle(
               color: Color.fromARGB(255, 255, 0, 0),
             ),
-            decoration: const InputDecoration(enabled: true),
           ),
         ),
-      ),
+      ),*/
       ConstrainedBox(
         constraints: const BoxConstraints(
             minHeight: 200, minWidth: 150, maxHeight: 300, maxWidth: 1900),

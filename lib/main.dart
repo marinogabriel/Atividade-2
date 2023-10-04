@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/mesas_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -40,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           body: ScrollConfiguration(
             behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
@@ -51,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               loginScreen(),
               tela1(),
               tela2(),
+              const ListMesas(),
             ]),
           ),
           appBar: const TabBar(
@@ -66,6 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Tab(
                 icon: Icon(Icons.gamepad_outlined),
                 text: "Projeto",
+              ),
+              Tab(
+                icon: Icon(Icons.gamepad_outlined),
+                text: "Mesas",
               ),
             ],
           ),
@@ -148,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(120),
               child: Image.network(
-                  'https://pps.whatsapp.net/v/t61.24694-24/118198409_463147921308473_7049084923594510693_n.jpg?ccb=11-4&oh=01_AdRHBeIC5bX0WlCVzAJ6Q4JsvR39kdirBieXTlN9n3EkXg&oe=6506134D&_nc_sid=000000&_nc_cat=102')),
+                  'https://images.unsplash.com/photo-1655159428752-c700435e9983?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJsYWNrJTIwamFja3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80')),
         ),
         const Text(
           "Matheus Roberto Mariano",
