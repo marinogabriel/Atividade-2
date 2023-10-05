@@ -53,7 +53,7 @@ class LoginFormState extends State<LoginForm> {
               ),
               passwordFormField(),
               Padding(
-                padding: EdgeInsets.only(top: size.height * 0.01),
+                padding: EdgeInsets.only(top: size.height * 0.025),
                 child: Text(
                   "Esqueci minha senha",
                   style: TextStyle(
@@ -66,7 +66,7 @@ class LoginFormState extends State<LoginForm> {
               submitButton(),
               Container(
                 margin: EdgeInsets.only(top: size.height * 0.04),
-                height: 240,
+                height: size.height * 0.2,
                 padding: const EdgeInsets.all(8.0),
                 decoration: const BoxDecoration(
                   boxShadow: [
