@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/tables_screen.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
@@ -40,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final PageController _controller = PageController(
     initialPage: 0, // Configura a tela inicial
   );
+
   int localPage = 0;
 
   @override
@@ -52,8 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         // O parâmetro "children" recebe todas as páginas
         children: const [
-          //TableScreen(),
-          ProfileScreen(),
           RegisterForm(),
           LoginForm(),
         ],
