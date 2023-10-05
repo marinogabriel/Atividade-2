@@ -1,12 +1,12 @@
 # blackjAPP™
 
 **TODO:  
--Telas de login e cadastro  
+~~-Telas de login e cadastro  ~~    
 -Trocar a navegação de TabBar pra Navigation drawer//manter a TabBar enquanto logado apenas?  
-~~-Tela com ListView das mesas~~  
+~~-Tela com ListView das mesas~~    
 -Tela dentro da mesa (sem implementar a API por enquanto?)  
--Telas de histórico/ranking com ListView também?  
--Tela de Perfil?**  
+-Tela de ranking     
+~~-Tela de Perfil/Histórico ~~  
 
 ## Getting Started
 
