@@ -9,7 +9,10 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-        title: const Text("TITULO"),
+        title: const Text(
+          "Perfil de Usuário",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Row(
         children: [
@@ -19,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                    top: size.height * 0.01, left: size.width * 0.02),
+                    top: size.height * 0.01, left: size.width * 0.01),
                 height: size.height * 0.25,
                 padding: EdgeInsets.all(size.height * 0.01),
                 decoration: const BoxDecoration(
@@ -45,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: size.width * 0.02, top: size.height * 0.03),
                 child: Text(
-                  "AAAAAAAAAAAAAAAA",
+                  "ulisses@ft.unicamp.br",
                   style: TextStyle(
                     fontSize: size.height * 0.03,
                     fontWeight: FontWeight.bold,
@@ -56,26 +59,52 @@ class ProfileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
-                  "Moedas: XXXX",
+                  "Moedas: 5000",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.w500,
-                    fontSize: size.height * 0.025,
+                    fontSize: size.height * 0.023,
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
-                  "Pontos: XXXX",
+                  "Pontos: 2840",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.w500,
-                    fontSize: size.height * 0.025,
+                    fontSize: size.height * 0.023,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Porcentagem de Vitória: 50.6%",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w500,
+                    fontSize: size.height * 0.023,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Vitórias: 39",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w500,
+                    fontSize: size.height * 0.023,
                   ),
                 ),
               ),
@@ -88,19 +117,143 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: size.width * 0.15),
-                child: const Text(
+                child: Text(
                   "HISTORICO",
-                  style: TextStyle(fontFamily: 'Poppins'),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                      fontSize: size.height * 0.05),
                 ),
               ),
-              /* QUEBRANDO O APP WHY ?!?!?
-              ListView(
-                children: const [ListTile()],
-              ),*/
-              const Text("AAAA"),
-              const Text("AAAA"),
-              const Text("AAAA"),
-              const Text("AAAA"),
+              SizedBox(
+                height: size.height * 0.8,
+                width: size.width * 0.5,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: const [
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #42'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.ac_unit),
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      subtitle: Text('Mesa #1'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #2'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #42'),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      trailing: Icon(Icons.ac_unit),
+                      subtitle: Text('Mesa #4'),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      trailing: Icon(Icons.ac_unit),
+                      subtitle: Text('Mesa #42'),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      trailing: Icon(Icons.ac_unit),
+                      subtitle: Text('Mesa #3'),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      trailing: Icon(Icons.verified),
+                      subtitle: Text('Mesa #42'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.ac_unit),
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      subtitle: Text('Mesa #4'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.ac_unit),
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      subtitle: Text('Mesa #42'),
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      trailing: Icon(Icons.verified),
+                      subtitle: Text('Mesa #33'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #2'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #17'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.verified),
+                      title: Text(
+                        "Vitória",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                      subtitle: Text('Mesa #4'),
+                    ),
+                    ListTile(
+                      trailing: Icon(Icons.ac_unit),
+                      title: Text(
+                        "Derrota",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      subtitle: Text('Mesa #7'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ],

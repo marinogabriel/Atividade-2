@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         // O parâmetro "children" recebe todas as páginas
         children: const [
+          ProfileScreen(),
           RegisterForm(),
           LoginForm(),
         ],
