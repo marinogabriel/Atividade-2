@@ -22,122 +22,124 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Form(
-        key: formKey,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Nunca jogou antes?',
-                style: GoogleFonts.poppins(
-                  color: Color(0xff1D1617),
-                  fontSize: size.height * 0.02,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: size.height * 0.02),
-                child: Text(
-                  'Você vai amar o BlackJackApp!',
+    return Scaffold(
+      body: Form(
+          key: formKey,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Nunca jogou antes?',
                   style: GoogleFonts.poppins(
                     color: Color(0xff1D1617),
-                    fontSize: size.height * 0.025,
-                    fontWeight: FontWeight.bold,
+                    fontSize: size.height * 0.02,
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: size.height * 0.05),
-                child: nameFormField(),
-              ),
-              usernameFormField(),
-              emailFormField(),
-              passwordFormField(),
-              confirmPasswordFormField(),
-              Padding(
-                padding: EdgeInsets.only(top: size.height * 0.03),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    myCheckbox(),
-                    SizedBox(
-                      width: size.width * 0.7,
-                      child: Center(
-                        child: Text(
-                          "Ao criar a minha conta, eu concordo com todos os termos e condições",
-                          style: TextStyle(
-                            color: Color(0xffADA4A5),
-                            fontSize: size.height * 0.015,
-                          ),
-                        ),
-                      ),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.02),
+                  child: Text(
+                    'Você vai amar o BlackJapp!',
+                    style: GoogleFonts.poppins(
+                      color: Color(0xff1D1617),
+                      fontSize: size.height * 0.025,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              submitButton(),
-              Container(
-                margin: EdgeInsets.only(top: size.height * 0.04),
-                height: size.height * 0.15,
-                padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 10,
-                    ),
-                  ],
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(colors: [
-                    Colors.black,
-                    Colors.red,
-                  ]),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.05),
+                  child: nameFormField(),
                 ),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
-                    child: Image.asset('../assets/images/BlackJackApp.png')),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: size.height * 0.03),
-                child: Row(
+                usernameFormField(),
+                emailFormField(),
+                passwordFormField(),
+                confirmPasswordFormField(),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.03),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "Já tem uma conta? ",
-                        style: TextStyle(
-                          color: const Color(0xff1D1617),
-                          fontSize: size.height * 0.018,
+                      myCheckbox(),
+                      SizedBox(
+                        width: size.width * 0.7,
+                        child: Center(
+                          child: Text(
+                            "Ao criar a minha conta, eu concordo com todos os termos e condições",
+                            style: TextStyle(
+                              color: Color(0xffADA4A5),
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                            text: "Login",
-                            style: TextStyle(
-                              foreground: Paint()
-                                ..shader = const LinearGradient(
-                                  colors: <Color>[
-                                    Color(0xffEEA4CE),
-                                    Color(0xffC58BF2),
-                                  ],
-                                ).createShader(
-                                  const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                                ),
-                              // color: const Color(0xffC58BF2),
-                              fontSize: size.height * 0.018,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('Terms of Service"');
-                              }),
+                    ],
+                  ),
+                ),
+                submitButton(),
+                Container(
+                  margin: EdgeInsets.only(top: size.height * 0.04),
+                  height: size.height * 0.15,
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 10,
                       ),
+                    ],
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(colors: [
+                      Colors.black,
+                      Colors.red,
                     ]),
-              ),
-            ],
-          ),
-        ));
+                  ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(120),
+                      child: Image.asset('../assets/images/BlackJackApp.png')),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.03),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Já tem uma conta? ",
+                          style: TextStyle(
+                            color: const Color(0xff1D1617),
+                            fontSize: size.height * 0.018,
+                          ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                              text: "Login",
+                              style: TextStyle(
+                                foreground: Paint()
+                                  ..shader = const LinearGradient(
+                                    colors: <Color>[
+                                      Color(0xffEEA4CE),
+                                      Color(0xffC58BF2),
+                                    ],
+                                  ).createShader(
+                                    const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                                  ),
+                                // color: const Color(0xffC58BF2),
+                                fontSize: size.height * 0.018,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pop(context);
+                                }),
+                        ),
+                      ]),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
   Widget nameFormField() {
