@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/gameplay_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../model/complete_model.dart';
 
@@ -97,9 +98,10 @@ class _LauncherScreenState extends State<LauncherScreen> {
             ),
           ),
           onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GameplayScreen()),
+            );
           },
         ),
       ),
