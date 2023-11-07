@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "514831039787",
+    "project_id": "blackjapp-bb005",
+    "storage_bucket": "blackjapp-bb005.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514831039787:android:6c14ccfebe6e8badaad96e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASsfI_Io_k1neO7V23O-WdyjmaqT26-yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
