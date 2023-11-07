@@ -1,12 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/tables_screen.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyBaHRFTfuudYJ-V2I2BeZ-URcw3Jd90PYw",
+            authDomain: "si7002s2023.firebaseapp.com",
+            projectId: "si7002s2023",
+            storageBucket: "blackjapp-bb005.appspot.com",
+            messagingSenderId: "1040749039198",
+            appId: "1:1040749039198:web:198ff1450765de8caa2ecf"));
+  } else {
+    await Firebase.initializeApp();
+  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
