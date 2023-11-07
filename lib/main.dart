@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/gameplay_screen.dart';
+import 'package:flutter_application_1/screens/laucher_screen.dart';
 import 'package:flutter_application_1/screens/tables_screen.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
@@ -67,8 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         // O parâmetro "children" recebe todas as páginas
         children: const [
-          ProfileScreen(),
-          RegisterForm(),
           LoginForm(),
         ],
       ),

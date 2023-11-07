@@ -286,6 +286,15 @@ class RegisterFormState extends State<RegisterForm> {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
               loginData.doSomething();
+              Navigator.of(context).pop();
+
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.green,
+                  duration: const Duration(seconds: 5),
+                  content: const Text("Cadastro realizado com sucesso!"),
+                  action: SnackBarAction(
+                      label: "Faça Login! ${completeModel.radioValue}",
+                      onPressed: () {})));
             }
           },
         ),

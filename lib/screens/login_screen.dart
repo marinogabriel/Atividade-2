@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
 
 import '../model/complete_model.dart';
@@ -204,7 +205,10 @@ class LoginFormState extends State<LoginForm> {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              loginData.doSomething();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
             }
           },
         ),
