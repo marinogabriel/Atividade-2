@@ -33,7 +33,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
             Text(
               'Tem coragem de apostar suas moedas?',
               style: GoogleFonts.poppins(
-                color: Color(0xff1D1617),
+                color: const Color(0xff1D1617),
                 fontSize: size.height * 0.02,
               ),
             ),
@@ -42,7 +42,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
               child: Text(
                 "Escolha a quantidade de moedas que deseja usar na mesa:",
                 style: TextStyle(
-                  color: Color(0xffADA4A5),
+                  color: const Color(0xffADA4A5),
                   fontSize: size.height * 0.018,
                 ),
               ),
@@ -52,7 +52,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
               child: Text(
                 '${sliderValue.toStringAsFixed(0)} moedas',
                 style: TextStyle(
-                  color: Color(0xffADA4A5),
+                  color: const Color(0xffADA4A5),
                   fontSize: size.height * 0.015,
                 ),
               ),
@@ -92,7 +92,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
             child: Text(
               "Iniciar Partida",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),

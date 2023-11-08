@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/profile_screen.dart';
-import 'screens/login_screen.dart';
+import 'package:flutter_application_1/screens/initial_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -64,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         // O parâmetro "children" recebe todas as páginas
         children: const [
-          ProfileScreen(),
+          InitialScreen(),
         ],
       ),
     );

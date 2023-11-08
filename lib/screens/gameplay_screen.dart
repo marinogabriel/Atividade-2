@@ -41,7 +41,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
                   child: Text(
                     'DEALER',
                     style: GoogleFonts.poppins(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontSize: size.height * 0.045,
                       fontWeight: FontWeight.bold,
                     ),
@@ -85,7 +85,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
                       Text(
                         'Moedas: 200',
                         style: GoogleFonts.poppins(
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           fontSize: size.height * 0.025,
                           fontWeight: FontWeight.bold,
                         ),
@@ -93,7 +93,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
                       Text(
                         'Aposta Atual: 50',
                         style: GoogleFonts.poppins(
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           fontSize: size.height * 0.025,
                           fontWeight: FontWeight.bold,
                         ),
@@ -148,7 +148,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
             child: Text(
               "HIT",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),
@@ -179,7 +179,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
             child: Text(
               "Stand",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),
@@ -210,7 +210,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
             child: Text(
               "Double",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),
@@ -241,7 +241,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
             child: Text(
               "Split",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),
@@ -285,7 +285,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
             child: Text(
               "Iniciar Partida",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/gameplay_screen.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +19,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 0, 0),
         title: const Text(
-          "Página Inicial",
+          "Página Principal",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -185,7 +184,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     shrinkWrap: true,
                     children: [
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -199,7 +198,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         title: Text(
                           "Derrota",
                           style: TextStyle(
@@ -213,7 +212,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -227,7 +226,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -248,7 +247,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontSize: size.height * 0.018,
                           ),
                         ),
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         subtitle: Text('Mesa #4',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
@@ -262,7 +261,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontSize: size.height * 0.018,
                           ),
                         ),
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         subtitle: Text('Mesa #42',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
@@ -276,7 +275,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontSize: size.height * 0.018,
                           ),
                         ),
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         subtitle: Text('Mesa #3',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
@@ -290,14 +289,14 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontSize: size.height * 0.018,
                           ),
                         ),
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         subtitle: Text('Mesa #42',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         title: Text(
                           "Derrota",
                           style: TextStyle(
@@ -311,7 +310,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         title: Text(
                           "Derrota",
                           style: TextStyle(
@@ -332,14 +331,14 @@ class ProfileScreenState extends State<ProfileScreen> {
                             fontSize: size.height * 0.018,
                           ),
                         ),
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         subtitle: Text('Mesa #33',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -353,7 +352,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -367,7 +366,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.verified),
+                        trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
                           style: TextStyle(
@@ -381,7 +380,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        trailing: Icon(Icons.ac_unit),
+                        trailing: const Icon(Icons.ac_unit),
                         title: Text(
                           "Derrota",
                           style: TextStyle(
@@ -419,7 +418,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             "Sair",
             style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: size.height * 0.013,
                 fontStyle: FontStyle.normal),
           ),
@@ -427,7 +426,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            backgroundColor: Color.fromARGB(255, 153, 0, 0),
+            backgroundColor: const Color.fromARGB(255, 153, 0, 0),
             builder: (context) {
               return Row(
                 children: [
@@ -438,7 +437,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           "Tem certeza que deseja sair?",
                           style: GoogleFonts.poppins(
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             fontSize: size.height * 0.02,
                           ),
                         ),
@@ -446,7 +445,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               "Sim",
                               style: GoogleFonts.poppins(
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: size.height * 0.015,
                               ),
                             ),
@@ -458,7 +457,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               "Não",
                               style: GoogleFonts.poppins(
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: size.height * 0.015,
                               ),
                             ),
@@ -484,14 +483,14 @@ class ProfileScreenState extends State<ProfileScreen> {
       padding: EdgeInsets.only(top: size.height * 0.05),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 0, 183, 255),
+          backgroundColor: const Color.fromARGB(255, 0, 183, 255),
         ),
         child: Padding(
           padding: EdgeInsets.all(size.height * 0.010),
           child: Text(
             "Jogar",
             style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: size.height * 0.015,
                 fontStyle: FontStyle.normal),
           ),
@@ -513,14 +512,14 @@ class ProfileScreenState extends State<ProfileScreen> {
       padding: EdgeInsets.only(top: size.height * 0.05),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 155, 45, 2),
+          backgroundColor: const Color.fromARGB(255, 155, 45, 2),
         ),
         child: Padding(
           padding: EdgeInsets.all(size.height * 0.010),
           child: Text(
             "Configurações",
             style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: size.height * 0.015,
                 fontStyle: FontStyle.normal),
           ),

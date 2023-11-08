@@ -33,7 +33,7 @@ class RegisterFormState extends State<RegisterForm> {
                 Text(
                   'Nunca jogou antes?',
                   style: GoogleFonts.poppins(
-                    color: Color(0xff1D1617),
+                    color: const Color(0xff1D1617),
                     fontSize: size.height * 0.02,
                   ),
                 ),
@@ -42,7 +42,7 @@ class RegisterFormState extends State<RegisterForm> {
                   child: Text(
                     'Você vai amar o BlackJapp!',
                     style: GoogleFonts.poppins(
-                      color: Color(0xff1D1617),
+                      color: const Color(0xff1D1617),
                       fontSize: size.height * 0.025,
                       fontWeight: FontWeight.bold,
                     ),
@@ -69,7 +69,7 @@ class RegisterFormState extends State<RegisterForm> {
                           child: Text(
                             "Ao criar a minha conta, eu concordo com todos os termos e condições",
                             style: TextStyle(
-                              color: Color(0xffADA4A5),
+                              color: const Color(0xffADA4A5),
                               fontSize: size.height * 0.015,
                             ),
                           ),
@@ -277,7 +277,7 @@ class RegisterFormState extends State<RegisterForm> {
             child: Text(
               "Cadastrar",
               style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: size.height * 0.02,
                   fontStyle: FontStyle.normal),
             ),
