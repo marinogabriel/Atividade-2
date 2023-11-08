@@ -14,12 +14,12 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyBaHRFTfuudYJ-V2I2BeZ-URcw3Jd90PYw",
-            authDomain: "si7002s2023.firebaseapp.com",
-            projectId: "si7002s2023",
+            apiKey: "AIzaSyADbTdI3EjLFuhMwW_sHaZjYHNsrNe_TwI",
+            authDomain: "blackjapp-bb005.firebaseapp.com",
+            projectId: "blackjapp-bb005",
             storageBucket: "blackjapp-bb005.appspot.com",
-            messagingSenderId: "1040749039198",
-            appId: "1:1040749039198:web:198ff1450765de8caa2ecf"));
+            messagingSenderId: "514831039787",
+            appId: "1:514831039787:web:cf4d921108d73015aad96e"));
   } else {
     await Firebase.initializeApp();
   }
@@ -72,57 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
           LoginForm(),
         ],
       ),
-    );
-  }
-
-  Widget tela2() {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 20.0),
-          height: 173,
-          padding: const EdgeInsets.all(8.0),
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 10,
-              ),
-            ],
-            shape: BoxShape.circle,
-            gradient: LinearGradient(colors: [
-              Colors.red,
-              Colors.black,
-            ]),
-          ),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: Image.network(
-                  'https://images.unsplash.com/photo-1655159428752-c700435e9983?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJsYWNrJTIwamFja3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80')),
-        ),
-        const Text(
-          "Matheus Roberto Mariano",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 3,
-            color: Colors.red,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(15),
-          child: Text(
-            "Desenvolvedor de Software orientado a resultados com ampla experiência em análise de web analytics e uma sólida base em JavaScript, SQL e análise de dados. Dedicado a otimizar as experiências do usuário e impulsionar o crescimento dos negócios por meio de soluções inovadoras. Aplicando mais de 4 anos de experiência em programação para criar soluções de software impactantes.",
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
