@@ -1,6 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../provider/firebase_auth.dart';
+
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final FirebaseAuthenticationService _authenticationService =
+      FirebaseAuthenticationService();
   AuthBloc() : super(Unauthenticated()) {
     on<LoginUser>((LoginUser event, Emitter emit) {
       if (event.password == "senha") {

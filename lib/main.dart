@@ -10,7 +10,7 @@ import 'screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  /*WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
@@ -22,8 +22,8 @@ void main() async {
             appId: "1:1040749039198:web:198ff1450765de8caa2ecf"));
   } else {
     await Firebase.initializeApp();
-  }
-  runApp(MyApp());
+  }*/
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
