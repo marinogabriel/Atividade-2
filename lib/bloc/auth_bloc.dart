@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../provider/firebase_auth.dart';
+import '../model/user_model.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuthenticationService _authenticationService =
       FirebaseAuthenticationService();
+
   AuthBloc() : super(Unauthenticated()) {
     _authenticationService.user.listen((event) {
       add(AuthServerEvent(event));
@@ -18,13 +20,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<LoginUser>((LoginUser event, Emitter emit) {
-      if (event.password == "senha") {
-        emit(Authenticated(email: event.email));
-      } else {
-        emit(AuthError(message: "Impossível Logar com ${event.email}"));
+    on<RegisterUser>((event, emit) async {
+      try {
+        await _authenticationService.createUserWithEmailAndPassword(
+            event.username, event.password);
+      } catch (e) {
+        emit(AuthError(message: "Impossível Registrar: ${e.toString()}"));
       }
     });
+
+    on<LoginUser>((event, emit) async {
+      try {
+        await _authenticationService.signInWithEmailAndPassword(
+            event.username, event.password);
+      } catch (e) {
+        emit(AuthError(
+            message:
+                "Impossível Logar com ${event.username}: ${e.toString()}"));
+      }
+    });
+
+    on<LoginAnonymousUser>((event, emit) async {
+      try {
+        await _authenticationService.signInAnonimo();
+      } catch (e) {
+        emit(AuthError(
+            message: "Impossível Acessar Anonimamente: ${e.toString()}"));
+      }
+    });
+
     on<Logout>((event, emit) async {
       try {
         await _authenticationService.signOut();
@@ -35,15 +59,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 }
 
-/*Eventos*/
+/*
+   Eventos
+*/
 abstract class AuthEvent {}
 
-class LoginUser extends AuthEvent {
-  String email;
+class RegisterUser extends AuthEvent {
+  String username;
   String password;
 
-  LoginUser({required this.email, required this.password});
+  RegisterUser({required this.username, required this.password});
 }
+
+class LoginUser extends AuthEvent {
+  String username;
+  String password;
+
+  LoginUser({required this.username, required this.password});
+}
+
+class LoginAnonymousUser extends AuthEvent {}
 
 class Logout extends AuthEvent {}
 
@@ -52,17 +87,21 @@ class AuthServerEvent extends AuthEvent {
   AuthServerEvent(this.userModel);
 }
 
-/*Estados*/
+/*
+Estados
+*/
+
 abstract class AuthState {}
 
 class Unauthenticated extends AuthState {}
 
 class Authenticated extends AuthState {
-  String email;
-  Authenticated({required this.email});
+  UserModel userModel;
+  Authenticated({required this.userModel});
 }
 
 class AuthError extends AuthState {
   final String message;
+
   AuthError({required this.message});
 }
