@@ -6,6 +6,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuthenticationService _authenticationService =
       FirebaseAuthenticationService();
   AuthBloc() : super(Unauthenticated()) {
+    _authenticationService.user.listen((event) {
+      add(AuthServerEvent(event));
+    });
+
+    on<AuthServerEvent>((event, emit) {
+      if (event.userModel == null) {
+        emit(Unauthenticated());
+      } else {
+        emit(Authenticated(userModel: event.userModel!));
+      }
+    });
+
     on<LoginUser>((LoginUser event, Emitter emit) {
       if (event.password == "senha") {
         emit(Authenticated(email: event.email));
@@ -13,8 +25,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(message: "Impossível Logar com ${event.email}"));
       }
     });
-    on<Logout>((Logout event, Emitter emit) async {
-      emit(Unauthenticated());
+    on<Logout>((event, emit) async {
+      try {
+        await _authenticationService.signOut();
+      } catch (e) {
+        emit(AuthError(message: "Impossível Efeturar Logout: ${e.toString()}"));
+      }
     });
   }
 }
@@ -30,6 +46,11 @@ class LoginUser extends AuthEvent {
 }
 
 class Logout extends AuthEvent {}
+
+class AuthServerEvent extends AuthEvent {
+  final UserModel? userModel;
+  AuthServerEvent(this.userModel);
+}
 
 /*Estados*/
 abstract class AuthState {}
