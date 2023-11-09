@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterUser>((event, emit) async {
       try {
         await _authenticationService.createUserWithEmailAndPassword(
-            event.username, event.password);
+            event.email, event.password);
       } catch (e) {
         emit(AuthError(message: "Impossível Registrar: ${e.toString()}"));
       }
@@ -32,11 +32,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginUser>((event, emit) async {
       try {
         await _authenticationService.signInWithEmailAndPassword(
-            event.username, event.password);
+            event.email, event.password);
       } catch (e) {
         emit(AuthError(
-            message:
-                "Impossível Logar com ${event.username}: ${e.toString()}"));
+            message: "Impossível Logar com ${event.email}: ${e.toString()}"));
       }
     });
 
@@ -53,7 +52,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await _authenticationService.signOut();
       } catch (e) {
-        emit(AuthError(message: "Impossível Efeturar Logout: ${e.toString()}"));
+        emit(AuthError(message: "Impossível Efetuar Logout: ${e.toString()}"));
       }
     });
   }
@@ -65,17 +64,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 abstract class AuthEvent {}
 
 class RegisterUser extends AuthEvent {
-  String username;
+  String email;
   String password;
 
-  RegisterUser({required this.username, required this.password});
+  RegisterUser({required this.email, required this.password});
 }
 
 class LoginUser extends AuthEvent {
-  String username;
+  String email;
   String password;
 
-  LoginUser({required this.username, required this.password});
+  LoginUser({required this.email, required this.password});
 }
 
 class LoginAnonymousUser extends AuthEvent {}

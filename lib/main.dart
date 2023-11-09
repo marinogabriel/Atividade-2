@@ -46,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // Um objeto da classe PageController gerencia a detecção do gesto de swype.
+  // Um objeto da classe PageController gerencia a troca de tela
   final PageController _controller = PageController(
     initialPage: 0, // Configura a tela inicial
   );
