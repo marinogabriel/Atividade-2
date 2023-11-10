@@ -4,10 +4,8 @@ import 'package:flutter_application_1/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/model/register_data.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../model/complete_model.dart';
-import '../model/login_data.dart';
-import 'package:google_fonts/google_fonts.dart';
+import "../model/complete_model.dart";
+import "package:google_fonts/google_fonts.dart";
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -20,9 +18,10 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final CompleteModel completeModel = CompleteModel();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final RegisterData registerData = RegisterData(
       name: "", user: "", email: "", password: "", confirmPassword: "");
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +37,14 @@ class RegisterFormState extends State<RegisterForm> {
               );
             });
       } else if (state is Authenticated) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+          content: Text("Cadastro realizado com sucesso!"),
+        ));
+        Navigator.of(context).pop();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()));
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -178,7 +183,7 @@ class RegisterFormState extends State<RegisterForm> {
           }
           return null;
         },
-        onSaved: (String? inValue) {
+        onChanged: (String? inValue) {
           registerData.name = inValue ?? "";
         },
         decoration: const InputDecoration(
@@ -202,7 +207,7 @@ class RegisterFormState extends State<RegisterForm> {
           }
           return null;
         },
-        onSaved: (String? inValue) {
+        onChanged: (String? inValue) {
           registerData.user = inValue ?? "";
         },
         decoration: const InputDecoration(
@@ -226,7 +231,7 @@ class RegisterFormState extends State<RegisterForm> {
           }
           return null;
         },
-        onSaved: (String? inValue) {
+        onChanged: (String? inValue) {
           registerData.email = inValue ?? "";
         },
         decoration: const InputDecoration(
@@ -250,7 +255,7 @@ class RegisterFormState extends State<RegisterForm> {
           }
           return null;
         },
-        onSaved: (String? inValue) {
+        onChanged: (String? inValue) {
           registerData.password = inValue ?? "";
         },
         decoration: const InputDecoration(
@@ -269,14 +274,13 @@ class RegisterFormState extends State<RegisterForm> {
           if (inValue != null) {
             if (inValue.length < 8) {
               return "Mínimo de 8 letras";
-            }
-            if (registerData.password != registerData.confirmPassword) {
+            } else if (inValue != registerData.password) {
               return "Senhas não conferem";
             }
           }
           return null;
         },
-        onSaved: (String? inValue) {
+        onChanged: (String? inValue) {
           registerData.confirmPassword = inValue ?? "";
         },
         decoration: const InputDecoration(
@@ -315,14 +319,6 @@ class RegisterFormState extends State<RegisterForm> {
                 email: registerData.email,
                 password: registerData.password,
               ));
-
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.green,
-                  duration: const Duration(seconds: 5),
-                  content: const Text("Cadastro realizado com sucesso!"),
-                  action: SnackBarAction(
-                      label: "Faça Login! ${completeModel.radioValue}",
-                      onPressed: () {})));
             }
           },
         ),
