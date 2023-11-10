@@ -38,13 +38,13 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => AuthBloc()),
         ],
-        child: const MyHomePage(title: 'BlackjAPP'),
+        child: const InitialScreen(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+/*class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
@@ -77,3 +77,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
