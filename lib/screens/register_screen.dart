@@ -270,7 +270,7 @@ class RegisterFormState extends State<RegisterForm> {
             if (inValue.length < 8) {
               return "Mínimo de 8 letras";
             }
-            if (registerData.password != inValue) {
+            if (registerData.password != registerData.confirmPassword) {
               return "Senhas não conferem";
             }
           }
