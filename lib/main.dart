@@ -38,14 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(),
-          ),
-        ],
-        child: const InitialScreen(),
-      ),
+      home: const InitialScreen(),
     );
   }
 }
