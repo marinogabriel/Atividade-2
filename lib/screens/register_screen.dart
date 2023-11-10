@@ -7,9 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import "../model/complete_model.dart";
 import "package:google_fonts/google_fonts.dart";
 
-import '../model/complete_model.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
 
