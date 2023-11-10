@@ -221,8 +221,8 @@ class RegisterFormState extends State<RegisterForm> {
         obscureText: true,
         validator: (String? inValue) {
           if (inValue != null) {
-            if (inValue.length < 10) {
-              return "Mínimo de 10 letras";
+            if (inValue.length < 8) {
+              return "Mínimo de 8 caracteres";
             }
           }
           return null;
@@ -244,8 +244,8 @@ class RegisterFormState extends State<RegisterForm> {
         obscureText: true,
         validator: (String? inValue) {
           if (inValue != null) {
-            if (inValue.length < 10) {
-              return "Mínimo de 10 letras";
+            if (inValue.length < 8) {
+              return "Mínimo de 8 caracteres";
             }
           }
           return null;
