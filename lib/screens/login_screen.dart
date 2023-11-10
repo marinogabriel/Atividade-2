@@ -37,6 +37,11 @@ class LoginFormState extends State<LoginForm> {
                   content: Text(state.message),
                 );
               });
+        } else if (state is Authenticated) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
+          );
         }
       },
       builder: (context, state) {
@@ -249,13 +254,11 @@ class LoginFormState extends State<LoginForm> {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              BlocProvider.of<AuthBloc>(context).add(LoginUser(
-                email: loginData.email,
-                password: loginData.password,
-              ));
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              BlocProvider.of<AuthBloc>(context).add(
+                LoginUser(
+                  email: loginData.email,
+                  password: loginData.password,
+                ),
               );
             }
           },

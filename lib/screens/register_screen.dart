@@ -245,7 +245,7 @@ class RegisterFormState extends State<RegisterForm> {
         validator: (String? inValue) {
           if (inValue != null) {
             if (inValue.length < 8) {
-              return "Mínimo de 8 letras";
+              return "Mínimo de 8 caracteres";
             }
           }
           return null;
