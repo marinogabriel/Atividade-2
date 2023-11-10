@@ -452,6 +452,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                             }),
                         TextButton(
                             child: Text(
