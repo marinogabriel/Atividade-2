@@ -48,7 +48,7 @@ class LoginFormState extends State<LoginForm> {
         if (state is Authenticated) {
           return Column(
             children: [
-              Text("Você está autenticado ${state.userModel.username}"),
+              Text("Você está autenticado ${state.userModel.email}"),
               ElevatedButton(
                   onPressed: () {
                     BlocProvider.of<AuthBloc>(context).add(Logout());

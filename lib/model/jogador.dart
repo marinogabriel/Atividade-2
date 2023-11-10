@@ -1,7 +1,7 @@
 import 'package:flutter_application_1/model/rodada.dart';
 
 class Jogador {
-  int id;
+  int uid;
   String? nome;
   String? email;
   String? senha;
@@ -11,5 +11,5 @@ class Jogador {
   List<Rodada>? historico;
 
   //Jogador({required this.nome, required this.email, required this.senha});
-  Jogador({required this.id});
+  Jogador({required this.uid});
 }
