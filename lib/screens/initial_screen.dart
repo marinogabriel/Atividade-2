@@ -97,7 +97,7 @@ class InitialScreenState extends State<InitialScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LoginForm()),
+            MaterialPageRoute(builder: (context) => const LoginForm()),
           );
         },
       ),

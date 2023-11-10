@@ -26,154 +26,123 @@ class LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is AuthError) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text("Impossível Logar"),
-                  content: Text(state.message),
-                );
-              });
-        }
-      },
-      builder: (context, state) {
-        if (state is Authenticated) {
-          return Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+        title: const Text(
+          "Página de Login",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Form(
+        key: formKey,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Você está autenticado ${state.userModel.username}"),
-              ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<AuthBloc>(context).add(Logout());
-                  },
-                  child: const Text("Logout"))
-            ],
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-              title: const Text(
-                "Página de Login",
-                style: TextStyle(color: Colors.white),
+              Text(
+                'E aí!',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xff1D1617),
+                  fontSize: size.height * 0.02,
+                ),
               ),
-            ),
-            body: Form(
-              key: formKey,
-              child: Center(
-                child: Column(
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.02),
+                child: Text(
+                  'Pronto para Jogar Novamente?',
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xff1D1617),
+                    fontSize: size.height * 0.025,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.05),
+                child: emailFormField(),
+              ),
+              passwordFormField(),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.025),
+                child: Text(
+                  "Esqueci minha senha",
+                  style: TextStyle(
+                    color: const Color(0xffADA4A5),
+                    decoration: TextDecoration.underline,
+                    fontSize: size.height * 0.018,
+                  ),
+                ),
+              ),
+              submitButton(),
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.04),
+                height: size.height * 0.2,
+                padding: const EdgeInsets.all(8.0),
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 10,
+                    ),
+                  ],
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(colors: [
+                    Colors.black,
+                    Colors.red,
+                  ]),
+                ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: Image.asset('../assets/images/BlackJackApp.png')),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.03),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'E aí!',
-                      style: GoogleFonts.poppins(
+                      "Não tem uma conta ainda? ",
+                      style: TextStyle(
                         color: const Color(0xff1D1617),
-                        fontSize: size.height * 0.02,
+                        fontSize: size.height * 0.018,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.02),
-                      child: Text(
-                        'Pronto para Jogar Novamente?',
-                        style: GoogleFonts.poppins(
-                          color: const Color(0xff1D1617),
-                          fontSize: size.height * 0.025,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.05),
-                      child: emailFormField(),
-                    ),
-                    passwordFormField(),
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.025),
-                      child: Text(
-                        "Esqueci minha senha",
+                    RichText(
+                      text: TextSpan(
+                        text: "Cadastrar",
                         style: TextStyle(
-                          color: const Color(0xffADA4A5),
-                          decoration: TextDecoration.underline,
+                          foreground: Paint()
+                            ..shader = const LinearGradient(
+                              colors: <Color>[
+                                Color(0xffEEA4CE),
+                                Color(0xffC58BF2),
+                              ],
+                            ).createShader(
+                              const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                            ),
+                          // color: const Color(0xffC58BF2),
                           fontSize: size.height * 0.018,
                         ),
-                      ),
-                    ),
-                    submitButton(),
-                    Container(
-                      margin: EdgeInsets.only(top: size.height * 0.04),
-                      height: size.height * 0.2,
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 10,
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(colors: [
-                          Colors.black,
-                          Colors.red,
-                        ]),
-                      ),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(120),
-                          child:
-                              Image.asset('../assets/images/BlackJackApp.png')),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.03),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Não tem uma conta ainda? ",
-                            style: TextStyle(
-                              color: const Color(0xff1D1617),
-                              fontSize: size.height * 0.018,
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              text: "Cadastrar",
-                              style: TextStyle(
-                                foreground: Paint()
-                                  ..shader = const LinearGradient(
-                                    colors: <Color>[
-                                      Color(0xffEEA4CE),
-                                      Color(0xffC58BF2),
-                                    ],
-                                  ).createShader(
-                                    const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                                  ),
-                                // color: const Color(0xffC58BF2),
-                                fontSize: size.height * 0.018,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RegisterForm()),
-                                  );
-                                },
-                            ),
-                          ),
-                        ],
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterForm()),
+                            );
+                          },
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        }
-      },
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -249,6 +218,10 @@ class LoginFormState extends State<LoginForm> {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
+              BlocProvider.of<AuthBloc>(context).add(LoginUser(
+                email: loginData.email,
+                password: loginData.password,
+              ));
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProfileScreen()),
