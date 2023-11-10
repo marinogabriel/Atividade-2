@@ -20,7 +20,11 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,45 +40,12 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AuthBloc()),
+          BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(),
+          ),
         ],
         child: const InitialScreen(),
       ),
     );
   }
 }
-
-/*class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // Um objeto da classe PageController gerencia a troca de tela
-  final PageController _controller = PageController(
-    initialPage: 0, // Configura a tela inicial
-  );
-
-  int localPage = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: _controller,
-        onPageChanged: (index) {
-          localPage = index;
-        },
-        // O parâmetro "children" recebe todas as páginas
-        children: const [
-          InitialScreen(),
-        ],
-      ),
-    );
-  }
-}
-*/
