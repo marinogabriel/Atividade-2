@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
+import 'package:flutter_application_1/screens/avatar_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -57,8 +58,15 @@ class ProfileScreenState extends State<ProfileScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(120),
-                        child: Image.network(
-                            'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'),
+                        child: IconButton(
+                          icon: Image.network(
+                              'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AvatarScreen()),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -326,48 +334,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                             )),
                       ),
                       ListTile(
-                        title: Text(
-                          "Vitória",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        trailing: const Icon(Icons.verified),
-                        subtitle: Text('Mesa #33',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        trailing: const Icon(Icons.verified),
-                        title: Text(
-                          "Vitória",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        subtitle: Text('Mesa #2',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        trailing: const Icon(Icons.verified),
-                        title: Text(
-                          "Vitória",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        subtitle: Text('Mesa #17',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
                         trailing: const Icon(Icons.verified),
                         title: Text(
                           "Vitória",
@@ -455,7 +421,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                               BlocProvider.of<AuthBloc>(context).add(
                                 Logout(),
                               );
-                              Navigator.of(context).pop();
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
