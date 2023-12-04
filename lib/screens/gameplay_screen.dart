@@ -1,6 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../model/complete_model.dart';
+import 'package:flutter_application_1/provider/game_logic.dart';
+import 'package:flutter_application_1/provider/normal_game.dart';
 
 class GameplayScreen extends StatefulWidget {
   const GameplayScreen({super.key});
@@ -10,293 +11,177 @@ class GameplayScreen extends StatefulWidget {
 }
 
 class _GameplayScreenState extends State<GameplayScreen> {
-  final CompleteModel completeModel = CompleteModel();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  double sliderValue = 0;
+  late List<bool> _showFrontSideList;
+  late bool _flipXAxis;
+  late final GameLogic game = GameLogic();
+  List<String> cards = [];
+
+  @override
+  void initState() {
+    super.initState();
+    cards = game.drawer();
+    _showFrontSideList = List.generate(cards.length, (index) => true);
+    _flipXAxis = true;
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-          title: const Text(
-            "Jogo",
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-          ),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+        title: const Text(
+          "Jogo",
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("../assets/images/background.jpg"),
-              fit: BoxFit.cover,
+        actions: [
+          IconButton(
+            icon: RotatedBox(
+              quarterTurns: _flipXAxis ? 0 : 1,
+              child: const Icon(Icons.flip),
             ),
+            onPressed: _changeRotationAxis,
           ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.02),
-                  child: Text(
-                    'DEALER',
-                    style: GoogleFonts.poppins(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      fontSize: size.height * 0.045,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [cardContainer(), cardContainer()],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),
-                  child: const Divider(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [cardContainer(), cardContainer()]),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    hitButton(),
-                    standButton(),
-                    doubleButton(),
-                    splitButton()
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Moedas: 200',
-                        style: GoogleFonts.poppins(
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          fontSize: size.height * 0.025,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Aposta Atual: 50',
-                        style: GoogleFonts.poppins(
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          fontSize: size.height * 0.025,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
-
-  Widget cardContainer() {
-    Size size = MediaQuery.of(context).size;
-
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.only(top: size.height * 0.01),
-          height: size.height * 0.15,
-          padding: EdgeInsets.all(size.height * 0.01),
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 10,
+        ],
+      ),
+      body: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: NormalGame.helper.dropdownValue,
+          childAspectRatio: 3.3 / 4,
+          crossAxisSpacing: 3.0,
+        ),
+        itemCount: cards.length,
+        itemBuilder: (context, index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: _buildFlipAnimation(cards[index], index),
               ),
             ],
-            shape: BoxShape.rectangle,
-          ),
-          child: ClipRRect(child: Image.asset('../assets/images/card.png')),
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget hitButton() {
-    Size size = MediaQuery.of(context).size;
+  void _changeRotationAxis() {
+    setState(() {
+      _flipXAxis = !_flipXAxis;
+    });
+  }
 
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.1),
-      child: FractionallySizedBox(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.02, bottom: size.height * 0.02),
-            child: Text(
-              "HIT",
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: size.height * 0.02,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
-          },
-        ),
+  void _switchCard(int index) {
+    setState(() {
+      _showFrontSideList[index] = !_showFrontSideList[index];
+    });
+  }
+
+  Widget _buildFlipAnimation(String card, int index) {
+    return GestureDetector(
+      onTap: () => _switchCard(index),
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 800),
+        transitionBuilder: __transitionBuilder,
+        layoutBuilder: (widget, list) => Stack(children: [widget!, ...list]),
+        switchInCurve: Curves.easeInBack,
+        switchOutCurve: Curves.easeInBack.flipped,
+        child: _showFrontSideList[index] ? _buildFront(card) : _buildRear(card),
       ),
     );
   }
 
-  Widget standButton() {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.1),
-      child: FractionallySizedBox(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.02, bottom: size.height * 0.02),
-            child: Text(
-              "Stand",
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: size.height * 0.02,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget doubleButton() {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.1),
-      child: FractionallySizedBox(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.02, bottom: size.height * 0.02),
-            child: Text(
-              "Double",
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: size.height * 0.02,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget splitButton() {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.1),
-      child: FractionallySizedBox(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.02, bottom: size.height * 0.02),
-            child: Text(
-              "Split",
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: size.height * 0.02,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget mySlider() {
-    return Slider(
-      min: 0,
-      max: 200,
-      value: completeModel.sliderValue,
-      onChanged: (double inValue) {
-        sliderValue = inValue;
-        setState(() => completeModel.sliderValue = inValue);
+  Widget __transitionBuilder(Widget widget, Animation<double> animation) {
+    final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
+    return AnimatedBuilder(
+      animation: rotateAnim,
+      child: widget,
+      builder: (context, widget) {
+        final isUnder = (ValueKey(_showFrontSideList) != widget?.key);
+        var tilt = ((animation.value - 0.5).abs() - 0.5) * 0.003;
+        tilt *= isUnder ? -1.0 : 1.0;
+        final value =
+            isUnder ? min(rotateAnim.value, pi / 2) : rotateAnim.value;
+        return Transform(
+          transform: _flipXAxis
+              ? (Matrix4.rotationY(value)..setEntry(3, 0, tilt))
+              : (Matrix4.rotationX(value)..setEntry(3, 1, tilt)),
+          alignment: Alignment.center,
+          child: widget,
+        );
       },
     );
   }
 
-  Widget submitButton() {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.1),
-      child: FractionallySizedBox(
-        widthFactor: 0.7,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.02, bottom: size.height * 0.02),
-            child: Text(
-              "Iniciar Partida",
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  fontSize: size.height * 0.02,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-            }
-          },
+  Widget _buildFront(String card) {
+    return __buildLayout(
+      key: const ValueKey(true),
+      backgroundColor: Colors.blue,
+      faceName: "Front",
+      card: card,
+      child: const Padding(
+        padding: EdgeInsets.all(32.0),
+        child: ColorFiltered(
+          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcATop),
+          child: FlutterLogo(),
         ),
       ),
     );
+  }
+
+  Widget _buildRear(String card) {
+    return __buildLayout(
+      key: ValueKey(false),
+      backgroundColor: Colors.blue.shade700,
+      faceName: "Rear",
+      card: card,
+      child: const Padding(
+        padding: EdgeInsets.all(20.0),
+        child: ColorFiltered(
+          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcATop),
+          child:
+              Center(child: Text("Flutter", style: TextStyle(fontSize: 50.0))),
+        ),
+      ),
+    );
+  }
+
+  Widget __buildLayout({
+    required Key key,
+    required Widget child,
+    required String faceName,
+    required Color backgroundColor,
+    required String card,
+  }) {
+    if (faceName == 'Rear') {
+      return Container(
+        key: key,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10.0),
+          color: backgroundColor,
+        ),
+        child: Center(
+          child: ClipRRect(child: Image.asset('../assets/images/$card.png')),
+        ),
+      );
+    } else {
+      return Container(
+        key: key,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10.0),
+          color: backgroundColor,
+        ),
+        child: Center(
+          child:
+              ClipRRect(child: Image.asset('../assets/images/cartaBack.png')),
+        ),
+      );
+    }
   }
 }
