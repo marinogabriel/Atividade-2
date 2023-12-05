@@ -16,7 +16,13 @@ class _LauncherScreenState extends State<LauncherScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double sliderValue = 0;
   List<String> list = <String>['2x2', '4x4', '6x6', '8x8'];
-  String dropdownValue = '2x2';
+  String dropdownValue = '';
+
+  @override
+  void initState() {
+    dropdownValue = '2x2';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
