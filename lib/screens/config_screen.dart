@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AvatarScreen extends StatefulWidget {
-  const AvatarScreen({super.key});
+class ConfigScreen extends StatefulWidget {
+  const ConfigScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return AvatarScreenState();
+    return ConfigScreenState();
   }
 }
 
-class AvatarScreenState extends State<AvatarScreen> {
+class ConfigScreenState extends State<ConfigScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

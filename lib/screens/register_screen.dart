@@ -4,8 +4,11 @@ import 'package:flutter_application_1/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/model/register_data.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/manage_bloc.dart';
 import "../model/complete_model.dart";
 import "package:google_fonts/google_fonts.dart";
+
+import '../model/user.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);

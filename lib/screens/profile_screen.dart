@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/model/users.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
-import 'package:flutter_application_1/screens/avatar_screen.dart';
+import 'package:flutter_application_1/screens/config_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../bloc/manage_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -57,16 +60,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                         ]),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(120),
-                        child: IconButton(
-                          icon: Image.network(
-                              'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AvatarScreen()),
-                          ),
-                        ),
+                        borderRadius: BorderRadius.circular(60),
+                        child: Image.network(
+                            'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'),
                       ),
                     ),
                   ),
@@ -231,62 +227,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         subtitle: Text('Mesa #2',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        trailing: const Icon(Icons.verified),
-                        title: Text(
-                          "Vitória",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        subtitle: Text('Mesa #42',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        title: Text(
-                          "Derrota",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        trailing: const Icon(Icons.ac_unit),
-                        subtitle: Text('Mesa #4',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        title: Text(
-                          "Derrota",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        trailing: const Icon(Icons.ac_unit),
-                        subtitle: Text('Mesa #42',
-                            style: TextStyle(
-                              fontSize: size.height * 0.013,
-                            )),
-                      ),
-                      ListTile(
-                        title: Text(
-                          "Derrota",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: size.height * 0.018,
-                          ),
-                        ),
-                        trailing: const Icon(Icons.ac_unit),
-                        subtitle: Text('Mesa #3',
                             style: TextStyle(
                               fontSize: size.height * 0.013,
                             )),
@@ -496,8 +436,42 @@ class ProfileScreenState extends State<ProfileScreen> {
                 fontStyle: FontStyle.normal),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ConfigScreen()),
+          );
+        },
       ),
     );
   }
+}
+
+//ListView dinâmica
+ListView getUserListView(UserCollection userCollection) {
+  return ListView.builder(
+    itemCount: userCollection.length(),
+    itemBuilder: (context, position) => ListTile(
+      onTap: () {
+        //print(userCollection.getIdAtIndex(position));
+        BlocProvider.of<ManageBloc>(context).add(UpdateRequest(
+          userId: userCollection.getIdAtIndex(position),
+          previousUser: userCollection.getUserAtIndex(position),
+        ));
+      },
+      leading: SizedBox(
+        height: 40,
+        width: 40,
+        child: Image.network(userCollection.getUserAtIndex(position).path),
+      ),
+      trailing: GestureDetector(
+          onTap: () {
+            BlocProvider.of<ManageBloc>(context).add(
+                DeleteEvent(userId: userCollection.getIdAtIndex(position)));
+          },
+          child: const Icon(Icons.delete)),
+      title: Text(userCollection.getUserAtIndex(position).name),
+      subtitle: Text(userCollection.getUserAtIndex(position).email),
+    ),
+  );
 }

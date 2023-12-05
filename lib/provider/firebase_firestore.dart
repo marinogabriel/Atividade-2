@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import '../model/users.dart';
 import 'firebase_storage.dart';
 
 import '../model/user.dart';
@@ -30,11 +30,7 @@ class FirestoreDatabase {
     DocumentReference ref = await userCollection
         .doc(uid)
         .collection("Usuarios")
-        .add({
-      "title": user.title,
-      "description": user.description,
-      "path": user.path
-    });
+        .add({"name": user.name, "email": user.email, "path": user.path});
 
     if (user.path != "") {
       UploadTask? task =
@@ -43,15 +39,8 @@ class FirestoreDatabase {
         var snapshot = await task.whenComplete(() {});
         user.path = await snapshot.ref.getDownloadURL();
 
-        await userCollection
-            .doc(uid)
-            .collection("Usuarios")
-            .doc(ref.id)
-            .update({
-          "title": user.title,
-          "description": user.description,
-          "path": user.path
-        });
+        await userCollection.doc(uid).collection("Users").doc(ref.id).update(
+            {"name": user.name, "email": user.email, "path": user.path});
       }
     }
 
@@ -68,11 +57,11 @@ class FirestoreDatabase {
       }
     }
 
-    await userCollection.doc(uid).collection("Usuarios").doc(userId).update({
-      "title": user.title,
-      "description": user.description,
-      "path": user.path
-    });
+    await userCollection
+        .doc(uid)
+        .collection("Usuarios")
+        .doc(userId)
+        .update({"name": user.name, "email": user.email, "path": user.path});
     return 42;
   }
 
@@ -93,7 +82,7 @@ class FirestoreDatabase {
 
   Future<UserCollection> getUserList() async {
     QuerySnapshot snapshot =
-        await userCollection.doc(uid).collection("usuarios").get();
+        await userCollection.doc(uid).collection("Users").get();
 
     return _userListFromSnapshot(snapshot);
   }
@@ -101,7 +90,7 @@ class FirestoreDatabase {
   Stream get stream {
     return userCollection
         .doc(uid)
-        .collection("Usuarios")
+        .collection("Users")
         .snapshots()
         .map(_userListFromSnapshot);
   }
