@@ -14,13 +14,6 @@ class FirebaseAuthenticationService {
     return user != null ? UserModel(user.uid, user.email) : null;
   }
 
-  Future<UserModel?> signInAnonimo() async {
-    UserCredential userCredential = await _firebaseAuth.signInAnonymously();
-    User? user = userCredential.user;
-
-    return _userFromFirebaseUser(user);
-  }
-
   Future<UserModel?> signInWithEmailAndPassword(
       String email, String password) async {
     UserCredential userCredential = await _firebaseAuth

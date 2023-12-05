@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/auth_bloc.dart';
+import 'bloc/manage_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,9 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     BlocProvider<AuthBloc>(
       create: (context) => AuthBloc(),
+    ),
+    BlocProvider<ManageBloc>(
+      create: (context) => ManageBloc(),
     ),
   ], child: const MyApp()));
 }

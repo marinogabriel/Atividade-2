@@ -39,15 +39,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<LoginAnonymousUser>((event, emit) async {
-      try {
-        await _authenticationService.signInAnonimo();
-      } catch (e) {
-        emit(AuthError(
-            message: "Impossível Acessar Anonimamente: ${e.toString()}"));
-      }
-    });
-
     on<Logout>((event, emit) async {
       try {
         await _authenticationService.signOut();
@@ -76,8 +67,6 @@ class LoginUser extends AuthEvent {
 
   LoginUser({required this.email, required this.password});
 }
-
-class LoginAnonymousUser extends AuthEvent {}
 
 class Logout extends AuthEvent {}
 

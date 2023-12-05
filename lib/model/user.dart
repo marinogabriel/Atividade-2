@@ -1,37 +1,45 @@
 class User {
   String _name = "";
   String _email = "";
-  String path = "";
+  String _path = "";
 
   User() {
     _name = "";
     _email = "";
-    path = "";
+    _path = "";
   }
 
-  User.withData({name = "", email = "", this.path = ""}) {
+  User.withData({name = "", email = "", path = ""}) {
     _name = name;
     _email = email;
+    _path = path;
   }
 
   User.fromMap(map) {
     _name = map["name"];
     _email = map["email"];
-    path = map["path"];
+    _path = map["path"];
   }
 
   String get name => _name;
   String get email => _email;
+  String get path => _path;
 
-  set name(String newName) {
-    if (newName.isNotEmpty) {
-      _name = newName;
+  set name(String newTitle) {
+    if (newTitle.isNotEmpty) {
+      _name = newTitle;
     }
   }
 
-  set email(String newEmail) {
-    if (newEmail.isNotEmpty) {
-      _email = newEmail;
+  set email(String newDescription) {
+    if (newDescription.isNotEmpty) {
+      _email = newDescription;
+    }
+  }
+
+  set path(String newPath) {
+    if (newPath.isNotEmpty) {
+      _path = newPath;
     }
   }
 
@@ -39,7 +47,7 @@ class User {
     var map = <String, dynamic>{};
     map["name"] = _name;
     map["email"] = _email;
-    map["path"] = path;
+    map["path"] = _path;
     return map;
   }
 }

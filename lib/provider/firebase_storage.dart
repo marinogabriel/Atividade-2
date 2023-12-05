@@ -7,11 +7,11 @@ class StorageServer {
   // Construtor privado
   StorageServer._createInstance();
 
-  Reference noteImage = FirebaseStorage.instance.ref().child("images");
+  Reference avatarImage = FirebaseStorage.instance.ref().child("avatars");
 
   UploadTask? insertImage(String uid, String noteId, String path) {
     try {
-      var ref = noteImage.child(uid).child(noteId + ".jpg");
+      var ref = avatarImage.child(uid).child(noteId + ".jpg");
       return ref.putFile(File(path));
     } on FirebaseException {
       return null;
@@ -19,6 +19,6 @@ class StorageServer {
   }
 
   deleteImage(String uid, String noteId) {
-    noteImage.child(uid).child(noteId + ".jpg").delete();
+    avatarImage.child(uid).child(noteId + ".jpg").delete();
   }
 }
