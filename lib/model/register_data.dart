@@ -1,6 +1,6 @@
 class RegisterData {
   String name;
-  String user;
+  String username;
   String email;
   String password;
   String confirmPassword;
@@ -8,7 +8,7 @@ class RegisterData {
 
   RegisterData(
       {required this.name,
-      required this.user,
+      required this.username,
       required this.email,
       required this.password,
       required this.confirmPassword});

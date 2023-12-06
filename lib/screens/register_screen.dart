@@ -19,11 +19,13 @@ class RegisterForm extends StatefulWidget {
   }
 }
 
+User user = User();
+
 class RegisterFormState extends State<RegisterForm> {
   final CompleteModel completeModel = CompleteModel();
 
   final RegisterData registerData = RegisterData(
-      name: "", user: "", email: "", password: "", confirmPassword: "");
+      name: "", username: "", email: "", password: "", confirmPassword: "");
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -211,7 +213,7 @@ class RegisterFormState extends State<RegisterForm> {
           return null;
         },
         onChanged: (String? inValue) {
-          registerData.user = inValue ?? "";
+          registerData.username = inValue ?? "";
         },
         decoration: const InputDecoration(
           hintText: "Fulano123",
@@ -322,6 +324,10 @@ class RegisterFormState extends State<RegisterForm> {
                 email: registerData.email,
                 password: registerData.password,
               ));
+              user.email = registerData.email;
+              user.name = registerData.name;
+              user.username = registerData.username;
+              BlocProvider.of<ManageBloc>(context).add(SubmitEvent(user: user));
             }
           },
         ),

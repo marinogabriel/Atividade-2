@@ -17,58 +17,56 @@ class FirestoreDatabase {
 
   // Ponto de acesso com o servidor
   final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection("users");
+      FirebaseFirestore.instance.collection("Users");
 
   Future<User> getUser(userId) async {
     DocumentSnapshot doc =
-        await userCollection.doc(uid).collection("usuarios").doc(userId).get();
+        await userCollection.doc(uid).collection("Users").doc(userId).get();
     User user = User.fromMap(doc.data());
     return user;
   }
 
   Future<int> insertUser(User user) async {
-    DocumentReference ref = await userCollection
-        .doc(uid)
-        .collection("Usuarios")
-        .add({"name": user.name, "email": user.email, "path": user.path});
+    DocumentReference ref = await userCollection.add(
+        {"name": user.name, "email": user.email, "username": user.username});
 
-    if (user.path != "") {
+    /*if (user.username != "") {
       UploadTask? task =
-          StorageServer.helper.insertImage(uid!, ref.id, user.path);
+          StorageServer.helper.insertImage(uid!, ref.id, user.username);
       if (task != null) {
         var snapshot = await task.whenComplete(() {});
-        user.path = await snapshot.ref.getDownloadURL();
+        user.username = await snapshot.ref.getDownloadURL();
 
-        await userCollection.doc(uid).collection("Users").doc(ref.id).update(
-            {"name": user.name, "email": user.email, "path": user.path});
+        await userCollection.doc(uid).collection("Users").doc(ref.id).update({
+          "name": user.name,
+          "email": user.email,
+          "username": user.username
+        });
       }
     }
-
-    return 42;
+*/
+    return 0;
   }
 
   Future<int> updateUser(userId, User user) async {
-    if (user.path != "") {
+    if (user.username != "") {
       UploadTask? task =
-          StorageServer.helper.insertImage(uid!, userId, user.path);
+          StorageServer.helper.insertImage(uid!, userId, user.username);
       if (task != null) {
         var snapshot = await task.whenComplete(() {});
-        user.path = await snapshot.ref.getDownloadURL();
+        user.username = await snapshot.ref.getDownloadURL();
       }
     }
 
-    await userCollection
-        .doc(uid)
-        .collection("Usuarios")
-        .doc(userId)
-        .update({"name": user.name, "email": user.email, "path": user.path});
-    return 42;
+    await userCollection.doc(uid).collection("Users").doc(userId).update(
+        {"name": user.name, "email": user.email, "username": user.username});
+    return 0;
   }
 
   Future<int> deleteUser(userId) async {
-    await userCollection.doc(uid).collection("Usuarios").doc(userId).delete();
+    await userCollection.doc(uid).collection("Users").doc(userId).delete();
     StorageServer.helper.deleteImage(uid!, userId);
-    return 42;
+    return 0;
   }
 
   UserCollection _userListFromSnapshot(QuerySnapshot snapshot) {
