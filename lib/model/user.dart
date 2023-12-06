@@ -1,29 +1,25 @@
-class User {
+class Usuario {
   String _name = "";
   String _email = "";
   String _username = "";
 
-  User() {
+  Usuario() {
     _name = "";
     _email = "";
     _username = "";
   }
 
-  User.withData({name = "", email = "", username = ""}) {
+  Usuario.withData({name = "", email = "", username = ""}) {
     _name = name;
     _email = email;
     _username = username;
   }
 
-  User.fromMap(map) {
+  Usuario.fromMap(map) {
     _name = map["name"];
     _email = map["email"];
     _username = map["username"];
   }
-
-  String get name => _name;
-  String get email => _email;
-  String get username => _username;
 
   set name(String newTitle) {
     if (newTitle.isNotEmpty) {
@@ -50,4 +46,8 @@ class User {
     map["username"] = _username;
     return map;
   }
+
+  String get name => _name;
+  String get email => _email;
+  String get username => _username;
 }

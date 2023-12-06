@@ -33,7 +33,7 @@ class ManageBloc extends Bloc<ManageEvent, ManageState> {
 abstract class ManageEvent {}
 
 class SubmitEvent extends ManageEvent {
-  User user;
+  Usuario user;
   SubmitEvent({required this.user});
 }
 
@@ -44,7 +44,7 @@ class DeleteEvent extends ManageEvent {
 
 class UpdateRequest extends ManageEvent {
   String userId;
-  User previousUser;
+  Usuario previousUser;
   UpdateRequest({required this.userId, required this.previousUser});
 }
 
@@ -60,6 +60,6 @@ class InsertState extends ManageState {}
 
 class UpdateState extends ManageState {
   String userId;
-  User previousUser;
+  Usuario previousUser;
   UpdateState({required this.userId, required this.previousUser});
 }

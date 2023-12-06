@@ -3,7 +3,6 @@ import 'package:flutter_application_1/model/user_model.dart';
 
 class FirebaseAuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   Stream<UserModel?> get user {
     return _firebaseAuth.authStateChanges().map(
           (event) => _userFromFirebaseUser(event),
@@ -19,7 +18,6 @@ class FirebaseAuthenticationService {
     UserCredential userCredential = await _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password);
     User? user = userCredential.user;
-
     return _userFromFirebaseUser(user);
   }
 
