@@ -21,14 +21,20 @@ class FirestoreDatabase {
 
   Future<User> getUser(userId) async {
     DocumentSnapshot doc =
-        await userCollection.doc(uid).collection("Users").doc(userId).get();
+        await userCollection.doc(uid).collection("UserData").doc(userId).get();
     User user = User.fromMap(doc.data());
     return user;
   }
 
   Future<int> insertUser(User user) async {
-    DocumentReference ref = await userCollection.add(
-        {"name": user.name, "email": user.email, "username": user.username});
+    DocumentReference ref = await userCollection
+        .doc(uid)
+        .collection("UserData")
+        .add({
+      "name": user.name,
+      "email": user.email,
+      "username": user.username
+    });
 
     /*if (user.username != "") {
       UploadTask? task =
