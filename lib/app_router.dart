@@ -25,37 +25,25 @@ class AppRouter {
       case "/login":
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
-              appBar: AppBar(
-                title: const Text("Login Screen"),
-                backgroundColor: Colors.red,
-              ),
-              body: BlocProvider.value(
-                value: authBloc,
-                child: BlocProvider.value(
-                  value: manageBloc,
-                  child: BlocProvider.value(
-                      value: monitorBloc, child: const LoginForm()),
-                ),
-              ));
+            appBar: AppBar(
+              title: const Text("Login Screen"),
+              backgroundColor: Colors.red,
+            ),
+            body: BlocProvider.value(value: authBloc, child: const LoginForm()),
+          );
         });
       case "/register":
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
-              appBar: AppBar(
-                title: const Text("Register Screen"),
-                backgroundColor: Colors.red,
-              ),
-              body: BlocProvider.value(
-                value: authBloc,
-                child: BlocProvider.value(
-                  value: manageBloc,
-                  child: BlocProvider.value(
-                      value: monitorBloc, child: const RegisterForm()),
-                ),
-              ));
+            appBar: AppBar(
+              title: const Text("Register Screen"),
+              backgroundColor: Colors.red,
+            ),
+            body: BlocProvider.value(
+                value: authBloc, child: const RegisterForm()),
+          );
         });
       case "/profile":
-        monitorBloc.add(UpdateStreamSubscription());
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(
@@ -63,9 +51,12 @@ class AppRouter {
                 backgroundColor: Colors.red,
               ),
               body: BlocProvider.value(
-                  value: monitorBloc,
-                  child: BlocProvider.value(
-                      value: manageBloc, child: const ProfileScreen())));
+                value: authBloc,
+                child: BlocProvider.value(
+                    value: monitorBloc,
+                    child: BlocProvider.value(
+                        value: manageBloc, child: const ProfileScreen())),
+              ));
         });
       case "/launcher":
         monitorBloc.add(UpdateStreamSubscription());
