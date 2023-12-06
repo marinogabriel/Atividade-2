@@ -21,26 +21,27 @@ class Usuario {
     _username = map["username"];
   }
 
-  set name(String newTitle) {
-    if (newTitle.isNotEmpty) {
-      _name = newTitle;
+  set name(String newName) {
+    if (newName.isNotEmpty) {
+      _name = newName;
     }
   }
 
-  set email(String newDescription) {
-    if (newDescription.isNotEmpty) {
-      _email = newDescription;
+  set email(String newEmail) {
+    if (newEmail.isNotEmpty) {
+      _email = newEmail;
     }
   }
 
-  set username(String newPath) {
-    if (newPath.isNotEmpty) {
-      _username = newPath;
+  set username(String newUsername) {
+    if (newUsername.isNotEmpty) {
+      _username = newUsername;
     }
   }
 
   toMap() {
     var map = <String, dynamic>{};
+    map["uid"] = _uid;
     map["name"] = _name;
     map["email"] = _email;
     map["username"] = _username;

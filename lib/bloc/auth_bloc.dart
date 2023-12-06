@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../provider/firebase_auth.dart';
 import '../model/user_model.dart';
+import '../provider/firebase_firestore.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuthenticationService _authenticationService =
@@ -13,10 +14,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AuthServerEvent>((event, emit) {
-      if (event.userModel == null) {
+      if (event.user == null) {
         emit(Unauthenticated());
       } else {
-        emit(Authenticated(userModel: event.userModel!));
+        FirestoreDatabase.helper.uid = event.user!.uid;
+        emit(Authenticated(user: event.user!));
       }
     });
 
@@ -71,8 +73,8 @@ class LoginUser extends AuthEvent {
 class Logout extends AuthEvent {}
 
 class AuthServerEvent extends AuthEvent {
-  final UserModel? userModel;
-  AuthServerEvent(this.userModel);
+  final UserModel? user;
+  AuthServerEvent(this.user);
 }
 
 /*
@@ -84,8 +86,8 @@ abstract class AuthState {}
 class Unauthenticated extends AuthState {}
 
 class Authenticated extends AuthState {
-  UserModel userModel;
-  Authenticated({required this.userModel});
+  UserModel user;
+  Authenticated({required this.user});
 }
 
 class AuthError extends AuthState {
