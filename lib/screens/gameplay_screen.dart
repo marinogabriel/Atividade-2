@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/game_logic.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';
@@ -19,10 +21,11 @@ class _GameplayScreenState extends State<GameplayScreen> {
   late final GameLogic game = GameLogic();
   List<String> cards = [];
   bool temporaryBlock = true;
+  //informacoes sobre o jogo
   int dimension = NormalGame.helper.dropdownValue;
-
-  DateTime _now = DateTime.now();
+  final DateTime _now = DateTime.now();
   late DateTime dateGame;
+  late int tempoUsado;
 
   int _firstCard = -1;
   int _secondCard = -1;
@@ -65,9 +68,47 @@ class _GameplayScreenState extends State<GameplayScreen> {
     await _stopWatchTimer.dispose();
   }
 
+  void _showWinnerSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        /// need to set following properties for best effect of awesome_snackbar_content
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Parabéns!',
+          message: 'Você ganhou!',
+
+          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+          contentType: ContentType.success,
+        ),
+      ));
+  }
+
+  void _showLoserSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        /// need to set following properties for best effect of awesome_snackbar_content
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Que pena!',
+          message: 'Você perdeu!',
+
+          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+          contentType: ContentType.failure,
+        ),
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 0, 0),
@@ -116,18 +157,26 @@ class _GameplayScreenState extends State<GameplayScreen> {
         ),
         StreamBuilder<int>(
           stream: _stopWatchTimer.rawTime,
-          initialData: 0,
+          initialData: 1,
           builder: (context, snap) {
             final value = snap.data;
             final displayTime = StopWatchTimer.getDisplayTime(value!);
             final resto = value / tempo;
-            print('Listen every second. $resto');
+
             if (_cardBlock.every((element) => element == true)) {
               _stopWatchTimer.onStopTimer();
               temporaryBlock = true;
+              tempoUsado = tempo * 1000 - value;
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _showWinnerSnackbar(context);
+              });
               //cadastrar vitoria aqui info do banco aqui
             } else if (value == 0) {
               temporaryBlock = true;
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _showLoserSnackbar(context);
+              });
               //cadastrar derrota aqui info do banco aqui
             }
 
@@ -334,7 +383,9 @@ class _GameplayScreenState extends State<GameplayScreen> {
         widthFactor: 0.7,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
+            backgroundColor: (temporaryBlock)
+                ? Color.fromARGB(255, 107, 107, 107)
+                : const Color.fromARGB(255, 255, 0, 38),
           ),
           child: Padding(
             padding: EdgeInsets.only(
@@ -348,9 +399,12 @@ class _GameplayScreenState extends State<GameplayScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
-            //cadastrar derrota aqui
+            if (temporaryBlock) {
+            } else {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              //cadastrar derrota aqui
+            }
           },
         ),
       ),
