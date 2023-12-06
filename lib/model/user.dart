@@ -1,33 +1,25 @@
-class User {
-  String _uid = "";
+class Usuario {
   String _name = "";
   String _email = "";
   String _username = "";
 
-  User() {
-    _uid = "";
+  Usuario() {
     _name = "";
     _email = "";
     _username = "";
   }
 
-  User.withData({uid = "", name = "", email = "", username = ""}) {
-    _uid = uid;
+  Usuario.withData({name = "", email = "", username = ""}) {
     _name = name;
     _email = email;
     _username = username;
   }
 
-  User.fromMap(map) {
+  Usuario.fromMap(map) {
     _name = map["name"];
     _email = map["email"];
     _username = map["username"];
   }
-
-  String get uid => _uid;
-  String get name => _name;
-  String get email => _email;
-  String get username => _username;
 
   set name(String newName) {
     if (newName.isNotEmpty) {
@@ -49,10 +41,14 @@ class User {
 
   toMap() {
     var map = <String, dynamic>{};
-    map["uid"] = _uid;
+    map["username"] = _username;
     map["name"] = _name;
     map["email"] = _email;
     map["username"] = _username;
     return map;
   }
+
+  String get name => _name;
+  String get email => _email;
+  String get username => _username;
 }

@@ -12,38 +12,31 @@ class FirestoreDatabase {
   // Construtor privado
   FirestoreDatabase._createInstance();
 
-  // uid do usuário logado
-  String? uid;
+  // username do usuário logado
+  String? username;
 
   // Ponto de acesso com o servidor
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
 
-  Future<User> getUser(userId) async {
-    DocumentSnapshot doc =
-        await userCollection.doc(uid).collection("UserData").doc(userId).get();
-    User user = User.fromMap(doc.data());
+  Future<Usuario> getUser() async {
+    DocumentSnapshot doc = await userCollection.doc(username).get();
+    Usuario user = Usuario.fromMap(doc.data());
     return user;
   }
 
-  Future<int> insertUser(User user) async {
-    DocumentReference ref = await userCollection
-        .doc(uid)
-        .collection("UserData")
-        .add({
-      "name": user.name,
-      "email": user.email,
-      "username": user.username
-    });
+  Future<int> insertUser(Usuario user) async {
+    DocumentReference ref = await userCollection.add(
+        {"name": user.name, "email": user.email, "username": user.username});
 
     /*if (user.username != "") {
       UploadTask? task =
-          StorageServer.helper.insertImage(uid!, ref.id, user.username);
+          StorageServer.helper.insertImage(username!, ref.id, user.username);
       if (task != null) {
         var snapshot = await task.whenComplete(() {});
         user.username = await snapshot.ref.getDownloadURL();
 
-        await userCollection.doc(uid).collection("Users").doc(ref.id).update({
+        await userCollection.doc(username).collection("Users").doc(ref.id).update({
           "name": user.name,
           "email": user.email,
           "username": user.username
@@ -54,31 +47,31 @@ class FirestoreDatabase {
     return 0;
   }
 
-  Future<int> updateUser(userId, User user) async {
+  Future<int> updateUser(userId, Usuario user) async {
     if (user.username != "") {
       UploadTask? task =
-          StorageServer.helper.insertImage(uid!, userId, user.username);
+          StorageServer.helper.insertImage(username!, userId, user.username);
       if (task != null) {
         var snapshot = await task.whenComplete(() {});
         user.username = await snapshot.ref.getDownloadURL();
       }
     }
 
-    await userCollection.doc(uid).collection("Users").doc(userId).update(
+    await userCollection.doc(username).collection("Users").doc(userId).update(
         {"name": user.name, "email": user.email, "username": user.username});
     return 0;
   }
 
   Future<int> deleteUser(userId) async {
-    await userCollection.doc(uid).collection("Users").doc(userId).delete();
-    StorageServer.helper.deleteImage(uid!, userId);
+    await userCollection.doc(username).collection("Users").doc(userId).delete();
+    StorageServer.helper.deleteImage(username!, userId);
     return 0;
   }
 
   UserCollection _userListFromSnapshot(QuerySnapshot snapshot) {
     UserCollection userCollection = UserCollection();
     for (var doc in snapshot.docs) {
-      User user = User.fromMap(doc.data());
+      Usuario user = Usuario.fromMap(doc.data());
       userCollection.insertUserOfId(doc.id, user);
     }
     return userCollection;
@@ -86,14 +79,14 @@ class FirestoreDatabase {
 
   Future<UserCollection> getUserList() async {
     QuerySnapshot snapshot =
-        await userCollection.doc(uid).collection("Users").get();
+        await userCollection.doc(username).collection("Users").get();
 
     return _userListFromSnapshot(snapshot);
   }
 
   Stream get stream {
     return userCollection
-        .doc(uid)
+        .doc(username)
         .collection("Users")
         .snapshots()
         .map(_userListFromSnapshot);

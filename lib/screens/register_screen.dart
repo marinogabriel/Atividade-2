@@ -19,7 +19,7 @@ class RegisterForm extends StatefulWidget {
   }
 }
 
-User user = User();
+Usuario user = Usuario();
 
 class RegisterFormState extends State<RegisterForm> {
   final CompleteModel completeModel = CompleteModel();

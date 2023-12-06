@@ -2,7 +2,7 @@ import 'user.dart';
 
 class UserCollection {
   List<String> idList = [];
-  List<User> userList = [];
+  List<Usuario> userList = [];
 
   UserCollection() {
     idList = [];
@@ -14,9 +14,9 @@ class UserCollection {
   }
 
   // index é a posição da user
-  User getUserAtIndex(int index) {
-    User user = userList[index];
-    return User.withData(
+  Usuario getUserAtIndex(int index) {
+    Usuario user = userList[index];
+    return Usuario.withData(
       name: user.name,
       email: user.email,
       username: user.username,
@@ -39,10 +39,10 @@ class UserCollection {
     // return -1;
   }
 
-  updateOrInsertUserOfId(String id, User user) {
+  updateOrInsertUserOfId(String id, Usuario user) {
     int index = getIndexOfId(id);
     if (index != -1) {
-      userList[index] = User.withData(
+      userList[index] = Usuario.withData(
         name: user.name,
         email: user.email,
         username: user.username,
@@ -50,7 +50,7 @@ class UserCollection {
     } else {
       idList.add(id);
       userList.add(
-        User.withData(
+        Usuario.withData(
           name: user.name,
           email: user.email,
           username: user.username,
@@ -59,10 +59,10 @@ class UserCollection {
     }
   }
 
-  updateUserOfId(String id, User user) {
+  updateUserOfId(String id, Usuario user) {
     int index = getIndexOfId(id);
     if (index != -1) {
-      userList[index] = User.withData(
+      userList[index] = Usuario.withData(
         name: user.name,
         email: user.email,
         username: user.username,
@@ -78,10 +78,10 @@ class UserCollection {
     }
   }
 
-  insertUserOfId(String id, User user) {
+  insertUserOfId(String id, Usuario user) {
     idList.add(id);
     userList.add(
-      User.withData(
+      Usuario.withData(
         name: user.name,
         email: user.email,
         username: user.username,
