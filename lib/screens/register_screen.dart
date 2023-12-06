@@ -48,8 +48,7 @@ class RegisterFormState extends State<RegisterForm> {
           content: Text("Cadastro realizado com sucesso!"),
         ));
         Navigator.of(context).pop();
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ProfileScreen()));
+        Navigator.pushNamed(context, "/profile");
       }
     }, builder: (context, state) {
       return Scaffold(
