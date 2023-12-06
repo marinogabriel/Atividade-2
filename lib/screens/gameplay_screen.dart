@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/game_logic.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class GameplayScreen extends StatefulWidget {
@@ -20,6 +21,9 @@ class _GameplayScreenState extends State<GameplayScreen> {
   bool temporaryBlock = true;
   int dimension = NormalGame.helper.dropdownValue;
 
+  DateTime _now = DateTime.now();
+  late DateTime dateGame;
+
   int _firstCard = -1;
   int _secondCard = -1;
   double minutosIniciais = 0;
@@ -31,7 +35,9 @@ class _GameplayScreenState extends State<GameplayScreen> {
   @override
   void initState() {
     super.initState();
-
+    dateGame = DateTime(
+        _now.year, _now.month, _now.day, _now.hour, _now.minute, _now.second);
+    print(dateGame);
     cards = game.drawer();
     _showFrontSideList = List.generate(cards.length, (index) => false);
     _cardBlock = List.generate(cards.length, (index) => false);
@@ -56,7 +62,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
   @override
   void dispose() async {
     super.dispose();
-    await _stopWatchTimer.dispose(); // Need to call dispose function.
+    await _stopWatchTimer.dispose();
   }
 
   @override
@@ -80,6 +86,13 @@ class _GameplayScreenState extends State<GameplayScreen> {
         ],
       ),
       body: Column(children: [
+        Text(
+          'Modo ${dimension} X $dimension',
+          style: GoogleFonts.permanentMarker(
+            color: const Color(0xff1D1617),
+            fontSize: size.height * 0.08,
+          ),
+        ),
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -107,7 +120,17 @@ class _GameplayScreenState extends State<GameplayScreen> {
           builder: (context, snap) {
             final value = snap.data;
             final displayTime = StopWatchTimer.getDisplayTime(value!);
-            print('Listen every second. $value');
+            final resto = value / tempo;
+            print('Listen every second. $resto');
+            if (_cardBlock.every((element) => element == true)) {
+              _stopWatchTimer.onStopTimer();
+              temporaryBlock = true;
+              //cadastrar vitoria aqui info do banco aqui
+            } else if (value == 0) {
+              temporaryBlock = true;
+              //cadastrar derrota aqui info do banco aqui
+            }
+
             return Column(
               children: <Widget>[
                 Padding(
@@ -120,14 +143,19 @@ class _GameplayScreenState extends State<GameplayScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Text(
                             displayTime.toString(),
-                            style: const TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'Helvetica',
-                                fontWeight: FontWeight.bold),
+                            style: GoogleFonts.permanentMarker(
+                              color: (resto < 300)
+                                  ? Colors.red
+                                  : (resto < 600)
+                                      ? Colors.amber[400]
+                                      : Colors.lightGreen,
+                              fontSize: size.height * 0.05,
+                            ),
                           ),
                         ),
                       ],
                     )),
+                surrenderButton(),
               ],
             );
           },
@@ -295,5 +323,37 @@ class _GameplayScreenState extends State<GameplayScreen> {
         ),
       );
     }
+  }
+
+  Widget surrenderButton() {
+    Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsets.only(top: size.height * 0.005),
+      child: FractionallySizedBox(
+        widthFactor: 0.7,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.02, bottom: size.height * 0.02),
+            child: Text(
+              "Desistir",
+              style: TextStyle(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  fontSize: size.height * 0.02,
+                  fontStyle: FontStyle.normal),
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            //cadastrar derrota aqui
+          },
+        ),
+      ),
+    );
   }
 }
