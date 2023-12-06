@@ -160,10 +160,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const GameplayScreen()),
-            );
+            Navigator.pushNamed(context, "/game");
           },
         ),
       ),

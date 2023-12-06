@@ -2,10 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/auth_bloc.dart';
-import 'bloc/manage_bloc.dart';
+import 'app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,18 +19,13 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
-    ),
-    BlocProvider<ManageBloc>(
-      create: (context) => ManageBloc(),
-    ),
-  ], child: const MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AppRouter appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
+      onGenerateRoute: appRouter.onGenerateRoute,
       home: const InitialScreen(),
     );
   }

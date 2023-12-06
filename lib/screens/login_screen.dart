@@ -148,12 +148,7 @@ class LoginFormState extends State<LoginForm> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegisterForm()),
-                                );
+                                Navigator.pushNamed(context, "/register");
                               },
                           ),
                         ),

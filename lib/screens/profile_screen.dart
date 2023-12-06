@@ -408,10 +408,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LauncherScreen()),
-          );
+          Navigator.pushNamed(context, "/launcher");
         },
       ),
     );
@@ -437,10 +434,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ConfigScreen()),
-          );
+          Navigator.pushNamed(context, "/config");
         },
       ),
     );
