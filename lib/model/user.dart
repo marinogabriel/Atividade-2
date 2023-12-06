@@ -41,7 +41,7 @@ class Usuario {
 
   toMap() {
     var map = <String, dynamic>{};
-    map["uid"] = _uid;
+    map["username"] = _username;
     map["name"] = _name;
     map["email"] = _email;
     map["username"] = _username;
