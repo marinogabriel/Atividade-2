@@ -40,7 +40,10 @@ class AppRouter {
               backgroundColor: Colors.red,
             ),
             body: BlocProvider.value(
-                value: authBloc, child: const RegisterForm()),
+              value: manageBloc,
+              child: BlocProvider.value(
+                  value: authBloc, child: const RegisterForm()),
+            ),
           );
         });
       case "/profile":

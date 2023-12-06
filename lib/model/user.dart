@@ -20,6 +20,9 @@ class Usuario {
     _email = map["email"];
     _username = map["username"];
   }
+  String get name => _name;
+  String get email => _email;
+  String get username => _username;
 
   set name(String newName) {
     if (newName.isNotEmpty) {
@@ -47,8 +50,4 @@ class Usuario {
     map["username"] = _username;
     return map;
   }
-
-  String get name => _name;
-  String get email => _email;
-  String get username => _username;
 }
