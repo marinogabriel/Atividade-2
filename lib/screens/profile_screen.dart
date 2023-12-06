@@ -448,7 +448,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 }
 
 //ListView dinâmica
-ListView getUserListView(UserCollection userCollection) {
+/*ListView getUserListView(UserCollection userCollection) {
   return ListView.builder(
     itemCount: userCollection.length(),
     itemBuilder: (context, position) => ListTile(
@@ -462,7 +462,7 @@ ListView getUserListView(UserCollection userCollection) {
       leading: SizedBox(
         height: 40,
         width: 40,
-        child: Image.network(userCollection.getUserAtIndex(position).path),
+        child: Image.network(userCollection.getUserAtIndex(position).username),
       ),
       trailing: GestureDetector(
           onTap: () {
@@ -475,3 +475,4 @@ ListView getUserListView(UserCollection userCollection) {
     ),
   );
 }
+*/

@@ -19,7 +19,7 @@ class UserCollection {
     return User.withData(
       name: user.name,
       email: user.email,
-      path: user.path,
+      username: user.username,
     );
   }
 
@@ -45,7 +45,7 @@ class UserCollection {
       userList[index] = User.withData(
         name: user.name,
         email: user.email,
-        path: user.path,
+        username: user.username,
       );
     } else {
       idList.add(id);
@@ -53,7 +53,7 @@ class UserCollection {
         User.withData(
           name: user.name,
           email: user.email,
-          path: user.path,
+          username: user.username,
         ),
       );
     }
@@ -65,7 +65,7 @@ class UserCollection {
       userList[index] = User.withData(
         name: user.name,
         email: user.email,
-        path: user.path,
+        username: user.username,
       );
     }
   }
@@ -84,7 +84,7 @@ class UserCollection {
       User.withData(
         name: user.name,
         email: user.email,
-        path: user.path,
+        username: user.username,
       ),
     );
   }

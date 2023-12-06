@@ -1,29 +1,29 @@
 class User {
   String _name = "";
   String _email = "";
-  String _path = "";
+  String _username = "";
 
   User() {
     _name = "";
     _email = "";
-    _path = "";
+    _username = "";
   }
 
-  User.withData({name = "", email = "", path = ""}) {
+  User.withData({name = "", email = "", username = ""}) {
     _name = name;
     _email = email;
-    _path = path;
+    _username = username;
   }
 
   User.fromMap(map) {
     _name = map["name"];
     _email = map["email"];
-    _path = map["path"];
+    _username = map["username"];
   }
 
   String get name => _name;
   String get email => _email;
-  String get path => _path;
+  String get username => _username;
 
   set name(String newTitle) {
     if (newTitle.isNotEmpty) {
@@ -37,9 +37,9 @@ class User {
     }
   }
 
-  set path(String newPath) {
+  set username(String newPath) {
     if (newPath.isNotEmpty) {
-      _path = newPath;
+      _username = newPath;
     }
   }
 
@@ -47,7 +47,7 @@ class User {
     var map = <String, dynamic>{};
     map["name"] = _name;
     map["email"] = _email;
-    map["path"] = _path;
+    map["username"] = _username;
     return map;
   }
 }
