@@ -55,11 +55,11 @@ class _GameplayScreenState extends State<GameplayScreen> {
     _flipXAxis = true;
     startDemo();
 
-    if (dimension == 2) {
+    if (dimension == '2') {
       minutosIniciais = 0.08;
-    } else if (dimension == 4) {
+    } else if (dimension == '4') {
       minutosIniciais = 1;
-    } else if (dimension == 6) {
+    } else if (dimension == '6') {
       minutosIniciais = 2;
     } else {
       minutosIniciais = 3;
