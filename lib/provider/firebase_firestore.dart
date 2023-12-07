@@ -45,8 +45,8 @@ class FirestoreDatabase {
     return 0;
   }
 
-  Future<int> updateUser(userId, Usuario user) async {
-    await userCollection.doc(username).collection("Users").doc(userId).update({
+  Future<int> updateUser(email, Usuario user) async {
+    await userCollection.doc(username).collection("Users").doc(email).update({
       "name": user.name,
       "email": user.email,
       "username": user.username,
@@ -55,9 +55,9 @@ class FirestoreDatabase {
     return 0;
   }
 
-  Future<int> deleteUser(userId) async {
-    await userCollection.doc(username).collection("Users").doc(userId).delete();
-    StorageServer.helper.deleteImage(username!, userId);
+  Future<int> deleteUser(email) async {
+    await userCollection.doc(username).collection("Users").doc(email).delete();
+    StorageServer.helper.deleteImage(username!, email);
     return 0;
   }
 
@@ -90,7 +90,7 @@ class FirestoreDatabase {
   //MATCHES
   Future<int> insertMatch(Partida match) async {
     DocumentReference ref = await matchCollection.add({
-      "userId": match.userId,
+      "email": match.email,
       "size": match.size,
       "date": match.date,
       "duration": match.duration,
@@ -103,7 +103,7 @@ class FirestoreDatabase {
             .collection("Matches")
             .doc(ref.id)
             .update({
-          "userId": match.userId,
+          "email": match.email,
           "size": match.size,
           "date": match.date,
           "duration": match.duration,
@@ -117,13 +117,13 @@ class FirestoreDatabase {
     return 0;
   }
 
-  Future<int> updateMatch(userId, Partida match) async {
+  Future<int> updateMatch(email, Partida match) async {
     await matchCollection
         .doc(username)
         .collection("Matches")
-        .doc(userId)
+        .doc(email)
         .update({
-      "userId": match.userId,
+      "email": match.email,
       "size": match.size,
       "date": match.date,
       "duration": match.duration,
@@ -134,11 +134,11 @@ class FirestoreDatabase {
 
   /* --> não permitir deletar partida?
 
-  Future<int> deleteMatch(userId) async {
+  Future<int> deleteMatch(email) async {
     await matchCollection
         .doc(username)
         .collection("Matches")
-        .doc(userId)
+        .doc(email)
         .delete();
     return 0;
   }

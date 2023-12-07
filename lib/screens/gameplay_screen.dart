@@ -28,7 +28,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
   bool temporaryBlock = true;
   //informacoes sobre o jogo
   String dimension = NormalGame.helper.dropdownValue.toString();
-  final uid = FirestoreDatabase.helper.uid!;
+  final email = FirestoreDatabase.helper.username!;
   final DateTime _now = DateTime.now();
   late DateTime dateGame;
   late int tempoUsado;
@@ -160,7 +160,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
               partida.date = dateGame;
               partida.duration = tempoUsado;
               partida.size = dimension;
-              partida.uid = FirestoreDatabase.helper.uid!;
+              partida.email = FirestoreDatabase.helper.username!;
               partida.win = 1;
               try {
                 BlocProvider.of<ManageBloc>(context)
