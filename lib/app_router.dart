@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/config_screen.dart';
 import 'package:flutter_application_1/screens/gameplay_screen.dart';
+import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
@@ -56,19 +57,27 @@ class AppRouter {
       case "/profile":
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
-              appBar: AppBar(
-                backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-                title: const Text(
-                  "Página Principal",
-                  style: TextStyle(color: Colors.white),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.red,
+                onPressed: () {
+                  Navigator.pushNamed(_, "/launcher");
+                },
+                child: const Text(
+                  "Jogar",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 15,
+                      fontStyle: FontStyle.normal),
                 ),
               ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
               body: BlocProvider.value(
                 value: authBloc,
                 child: BlocProvider.value(
                     value: monitorBloc,
                     child: BlocProvider.value(
-                        value: manageBloc, child: ProfileScreen())),
+                        value: manageBloc, child: HomeScreen())),
               ));
         });
 
@@ -99,7 +108,7 @@ class AppRouter {
               body: BlocProvider.value(
                   value: monitorBloc,
                   child: BlocProvider.value(
-                      value: manageBloc, child: const ConfigScreen())));
+                      value: manageBloc, child: const GameplayScreen())));
         });
 
       default:
