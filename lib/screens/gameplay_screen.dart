@@ -6,7 +6,6 @@ import 'package:flutter_application_1/model/match.dart';
 import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_application_1/provider/game_logic.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';
-import 'package:flutter_application_1/screens/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -29,7 +28,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
   bool temporaryBlock = true;
   //informacoes sobre o jogo
   String dimension = NormalGame.helper.dropdownValue.toString();
-  final userId = FirestoreDatabase.helper.username!;
+  final uid = FirestoreDatabase.helper.uid!;
   final DateTime _now = DateTime.now();
   late DateTime dateGame;
   late int tempoUsado;
@@ -120,7 +119,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
     return Scaffold(
       body: Column(children: [
         Text(
-          'Modo ${dimension} X $dimension',
+          'Modo $dimension X $dimension',
           style: GoogleFonts.permanentMarker(
             color: const Color(0xff1D1617),
             fontSize: size.height * 0.08,
@@ -161,8 +160,8 @@ class _GameplayScreenState extends State<GameplayScreen> {
               partida.date = dateGame;
               partida.duration = tempoUsado;
               partida.size = dimension;
-              partida.userId = FirestoreDatabase.helper.username!;
-              partida.win = true;
+              partida.uid = FirestoreDatabase.helper.uid!;
+              partida.win = 1;
               try {
                 BlocProvider.of<ManageBloc>(context)
                     .add(SubmitMatchEvent(match: partida));
@@ -325,7 +324,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
 
   Widget _buildRear(String card) {
     return __buildLayout(
-      key: ValueKey(false),
+      key: const ValueKey(false),
       backgroundColor: Colors.blue.shade700,
       faceName: "Rear",
       card: card,
@@ -385,7 +384,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: (temporaryBlock)
-                ? Color.fromARGB(255, 107, 107, 107)
+                ? const Color.fromARGB(255, 107, 107, 107)
                 : const Color.fromARGB(255, 255, 0, 38),
           ),
           child: Padding(

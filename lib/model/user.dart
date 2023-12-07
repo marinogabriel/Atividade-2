@@ -19,7 +19,7 @@ class Usuario {
     _name = name;
     _email = email;
     _username = username;
-    _path = "";
+    _path = path;
   }
 
   Usuario.fromMap(map) {
