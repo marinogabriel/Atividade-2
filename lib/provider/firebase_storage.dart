@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageServer {
@@ -6,18 +8,18 @@ class StorageServer {
   // Construtor privado
   StorageServer._createInstance();
 
-  Reference avatarImage = FirebaseStorage.instance.ref().child("avatars");
+  Reference noteImage = FirebaseStorage.instance.ref().child("Avatars");
 
-  Future<String>? getImage(String name) {
+  UploadTask? insertImage(String username, String noteId, Uint8List fileBytes) {
     try {
-      var ref = avatarImage.child(name);
-      return ref.getDownloadURL();
+      var ref = noteImage.child(username).child("$noteId.jpg");
+      return ref.putData(fileBytes);
     } on FirebaseException {
       return null;
     }
   }
 
-  deleteImage(String uid, String noteId) {
-    avatarImage.child(uid).child(noteId + ".jpg").delete();
+  deleteImage(String username, String noteId) {
+    noteImage.child(username).child("$noteId.jpg").delete();
   }
 }

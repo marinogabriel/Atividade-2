@@ -5,7 +5,6 @@ import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
-import 'package:flutter_application_1/screens/profile_screen.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +31,6 @@ class AppRouter {
               backgroundColor: const Color.fromARGB(255, 255, 0, 0),
               title: const Text(
                 "Login",
-                style: TextStyle(color: Colors.white),
               ),
             ),
             body: BlocProvider.value(value: authBloc, child: const LoginForm()),
@@ -77,7 +75,7 @@ class AppRouter {
                 child: BlocProvider.value(
                     value: monitorBloc,
                     child: BlocProvider.value(
-                        value: manageBloc, child: HomeScreen())),
+                        value: manageBloc, child: const HomeScreen())),
               ));
         });
 

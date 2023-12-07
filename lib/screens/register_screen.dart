@@ -8,6 +8,7 @@ import "../model/complete_model.dart";
 import "package:google_fonts/google_fonts.dart";
 
 import '../model/user.dart';
+import '../provider/firebase_firestore.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -322,6 +323,7 @@ class RegisterFormState extends State<RegisterForm> {
                 email: registerData.email,
                 password: registerData.password,
               ));
+              //user.uid = FirestoreDatabase.helper.uid!;
               user.email = registerData.email;
               user.name = registerData.name;
               user.username = registerData.username;

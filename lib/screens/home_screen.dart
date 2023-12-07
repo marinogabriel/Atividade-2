@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/config_screen.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             ProfileScreen(),
             Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
+            ConfigScreen(),
           ],
         ),
       ),
