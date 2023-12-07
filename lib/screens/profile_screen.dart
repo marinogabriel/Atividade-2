@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
@@ -381,7 +383,19 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         onPressed: () {
-          Navigator.pushNamed(context, "/config");
+          // ignore: avoid_single_cascade_in_expression_statements
+          FirebaseFirestore.instance
+              .collection('Users')
+              .where(
+                'email',
+                isEqualTo: FirestoreDatabase.helper.username!,
+              )
+              .get()
+              .then((QuerySnapshot querySnapshot) {
+            querySnapshot.docs.forEach((doc) {
+              print(doc["username"]);
+            });
+          });
         },
       ),
     );
