@@ -109,22 +109,6 @@ class _GameplayScreenState extends State<GameplayScreen> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
-        title: const Text(
-          "Jogo",
-          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-        ),
-        actions: [
-          IconButton(
-            icon: RotatedBox(
-              quarterTurns: _flipXAxis ? 0 : 1,
-              child: const Icon(Icons.flip),
-            ),
-            onPressed: _changeRotationAxis,
-          ),
-        ],
-      ),
       body: Column(children: [
         Text(
           'Modo ${dimension} X $dimension',

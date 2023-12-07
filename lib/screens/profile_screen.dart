@@ -1,12 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
   @override
   State<StatefulWidget> createState() {
     return ProfileScreenState();
@@ -17,12 +16,13 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Dispara o evento AskNewList assim que a tela for iniciada
   }
 
+  late final String documentId;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -312,73 +312,26 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Padding(
       padding: EdgeInsets.only(top: size.height * 0.020),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 255, 0, 38),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(size.height * 0.010),
-          child: Text(
-            "Sair",
-            style: TextStyle(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                fontSize: size.height * 0.013,
-                fontStyle: FontStyle.normal),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
           ),
-        ),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: const Color.fromARGB(255, 153, 0, 0),
-            builder: (context) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Tem certeza que deseja sair?",
-                          style: GoogleFonts.poppins(
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                            fontSize: size.height * 0.02,
-                          ),
-                        ),
-                        TextButton(
-                            child: Text(
-                              "Sim",
-                              style: GoogleFonts.poppins(
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                fontSize: size.height * 0.015,
-                              ),
-                            ),
-                            onPressed: () {
-                              BlocProvider.of<AuthBloc>(context).add(
-                                Logout(),
-                              );
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            }),
-                        TextButton(
-                            child: Text(
-                              "Não",
-                              style: GoogleFonts.poppins(
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                fontSize: size.height * 0.015,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            },
-          );
-        },
-      ),
+          child: Padding(
+            padding: EdgeInsets.all(size.height * 0.010),
+            child: Text(
+              "Sair",
+              style: TextStyle(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  fontSize: size.height * 0.013,
+                  fontStyle: FontStyle.normal),
+            ),
+          ),
+          onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(
+              Logout(),
+            );
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }),
     );
   }
 

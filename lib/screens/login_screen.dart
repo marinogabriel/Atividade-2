@@ -23,9 +23,12 @@ class LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is AuthError) {
+    return Scaffold(
+      body: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, AuthState state) {
+        if (state is Authenticated) {
+          Navigator.pushNamed(context, "/profile");
+        } else if (state is AuthError) {
           showDialog(
               context: context,
               builder: (context) {
@@ -37,8 +40,7 @@ class LoginFormState extends State<LoginForm> {
         } else if (state is Authenticated) {
           Navigator.pushNamed(context, "/profile");
         }
-      },
-      builder: (context, state) {
+      }, builder: (context, AuthState state) {
         return Form(
           key: formKey,
           child: Center(
@@ -144,7 +146,7 @@ class LoginFormState extends State<LoginForm> {
             ),
           ),
         );
-      },
+      }),
     );
   }
 
@@ -219,6 +221,7 @@ class LoginFormState extends State<LoginForm> {
           ),
           onPressed: () {
             if (formKey.currentState!.validate()) {
+              print("tentativa de login");
               formKey.currentState!.save();
               BlocProvider.of<AuthBloc>(context).add(
                 LoginUser(
