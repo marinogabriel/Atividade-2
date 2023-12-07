@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../model/match.dart';
 import '../model/user.dart';
 import '../provider/firebase_firestore.dart';
 
@@ -21,6 +22,17 @@ class ManageBloc extends Bloc<ManageEvent, ManageState> {
         emit(InsertState());
       }
     });
+
+    on<SubmitMatchEvent>((event, emit) {
+      if (state is InsertState) {
+        FirestoreDatabase.helper.insertMatch(event.match);
+      } else if (state is UpdateState) {
+        FirestoreDatabase.helper
+            .updateMatch((state as UpdateState).userId, event.match);
+        emit(InsertState());
+      }
+    });
+
     on<DeleteEvent>((event, emit) {
       FirestoreDatabase.helper.deleteUser(event.userId);
     });
@@ -47,6 +59,11 @@ class UpdateRequest extends ManageEvent {
   Usuario previousUser;
   UpdateRequest({required this.userId, required this.previousUser});
 }
+
+class SubmitMatchEvent extends ManageEvent {
+  Match match;
+  SubmitEvent({required this.match});
+} //???????????????????????????????????????????????
 
 class UpdateCancel extends ManageEvent {}
 
