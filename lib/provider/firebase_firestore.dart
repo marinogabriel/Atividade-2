@@ -19,12 +19,6 @@ class FirestoreDatabase {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
 
-  Future<Usuario> getUser() async {
-    DocumentSnapshot doc = await userCollection.doc(username).get();
-    Usuario user = Usuario.fromMap(doc.data());
-    return user;
-  }
-
   Future<int> insertUser(Usuario user) async {
     DocumentReference ref = await userCollection.add(
         {"name": user.name, "email": user.email, "username": user.username});
