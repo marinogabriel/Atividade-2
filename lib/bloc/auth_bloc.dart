@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event.user == null) {
         emit(Unauthenticated());
       } else {
-        FirestoreDatabase.helper.username = event.user!.email;
+        FirestoreDatabase.helper.username = event.user!.uid;
         emit(Authenticated(user: event.user!));
       }
     });

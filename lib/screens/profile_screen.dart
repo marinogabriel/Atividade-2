@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
 import 'package:flutter_application_1/provider/firebase_firestore.dart';
@@ -19,7 +20,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       .collection('Users')
       .where(
         'email',
-        isEqualTo: FirestoreDatabase.helper.username!,
+        isEqualTo: FirebaseAuth.instance.currentUser?.email,
       )
       .snapshots();
 

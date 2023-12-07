@@ -14,15 +14,15 @@ class MatchCollection {
   }
 
   // index é a posição da match
-  Match getMatchAtIndex(int index) {
-    Match match = matchList[index];
-    return Match.withData(
-        userId: match.userId,
-        size: match.size,
-        date: match.date,
-        duration: match.duration,
-        win: match.win);
-  }
+  // Match getMatchAtIndex(int index) {
+  //   Match match = matchList[index];
+  //   return Match.withData(
+  //       userId: match.userId,
+  //       size: match.size,
+  //       date: match.date,
+  //       duration: match.duration,
+  //       win: match.win);
+  // }
 
   String getIdAtIndex(int index) {
     return idList[index];
@@ -40,57 +40,57 @@ class MatchCollection {
     // return -1;
   }
 
-  updateOrInsertMatchOfId(String id, Match match) {
-    int index = getIndexOfId(id);
-    if (index != -1) {
-      matchList[index] = Match.withData(
-          userId: match.userId,
-          size: match.size,
-          date: match.date,
-          duration: match.duration,
-          win: match.win);
-    } else {
-      idList.add(id);
-      matchList.add(
-        Match.withData(
-            userId: match.userId,
-            size: match.size,
-            date: match.date,
-            duration: match.duration,
-            win: match.win),
-      );
-    }
-  }
+  // updateOrInsertMatchOfId(String id, Match match) {
+  //   int index = getIndexOfId(id);
+  //   if (index != -1) {
+  //     matchList[index] = Match.withData(
+  //         userId: match.userId,
+  //         size: match.size,
+  //         date: match.date,
+  //         duration: match.duration,
+  //         win: match.win);
+  //   } else {
+  //     idList.add(id);
+  //     matchList.add(
+  //       Match.withData(
+  //           userId: match.userId,
+  //           size: match.size,
+  //           date: match.date,
+  //           duration: match.duration,
+  //           win: match.win),
+  //     );
+  //   }
+  // }
 
-  updateMatchOfId(String id, Match match) {
-    int index = getIndexOfId(id);
-    if (index != -1) {
-      matchList[index] = Match.withData(
-          userId: match.userId,
-          size: match.size,
-          date: match.date,
-          duration: match.duration,
-          win: match.win);
-    }
-  }
+  // updateMatchOfId(String id, Match match) {
+  //   int index = getIndexOfId(id);
+  //   if (index != -1) {
+  //     matchList[index] = Match.withData(
+  //         userId: match.userId,
+  //         size: match.size,
+  //         date: match.date,
+  //         duration: match.duration,
+  //         win: match.win);
+  //   }
+  // }
 
-  deleteMatchOfId(String id) {
-    int index = getIndexOfId(id);
-    if (index != -1) {
-      matchList.removeAt(index);
-      idList.removeAt(index);
-    }
-  }
+  // deleteMatchOfId(String id) {
+  //   int index = getIndexOfId(id);
+  //   if (index != -1) {
+  //     matchList.removeAt(index);
+  //     idList.removeAt(index);
+  //   }
+  // }
 
-  insertMatchOfId(String id, Match match) {
-    idList.add(id);
-    matchList.add(
-      Match.withData(
-          userId: match.userId,
-          size: match.size,
-          date: match.date,
-          duration: match.duration,
-          win: match.win),
-    );
-  }
+  // insertMatchOfId(String id, Match match) {
+  //   idList.add(id);
+  //   matchList.add(
+  //     Match.withData(
+  //         userId: match.userId,
+  //         size: match.size,
+  //         date: match.date,
+  //         duration: match.duration,
+  //         win: match.win),
+  //   );
+  // }
 }

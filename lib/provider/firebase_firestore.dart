@@ -20,9 +20,6 @@ class FirestoreDatabase {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
 
-  final CollectionReference matchCollection =
-      FirebaseFirestore.instance.collection("Matches");
-
   //USERS
   Future<int> insertUser(Usuario user) async {
     DocumentReference ref = await userCollection.add({
@@ -87,9 +84,11 @@ class FirestoreDatabase {
         .snapshots()
         .map(_userListFromSnapshot);
   }*/
+  final CollectionReference matchCollection =
+      FirebaseFirestore.instance.collection("Matches");
 
   //MATCHES
-  Future<int> insertMatch(Match match) async {
+  Future<int> insertMatch(Partida match) async {
     DocumentReference ref = await matchCollection.add({
       "userId": match.userId,
       "size": match.size,
@@ -97,25 +96,28 @@ class FirestoreDatabase {
       "duration": match.duration,
       "win": match.win,
     });
-
-    if (match.size != "") {
-      await matchCollection
-          .doc(username)
-          .collection("Matches")
-          .doc(ref.id)
-          .update({
-        "userId": match.userId,
-        "size": match.size,
-        "date": match.date,
-        "duration": match.duration,
-        "win": match.win
-      });
+    try {
+      if (match.size != "") {
+        await matchCollection
+            .doc(username)
+            .collection("Matches")
+            .doc(ref.id)
+            .update({
+          "userId": match.userId,
+          "size": match.size,
+          "date": match.date,
+          "duration": match.duration,
+          "win": match.win
+        });
+      }
+    } catch (e) {
+      print('Erro: $e');
     }
 
     return 0;
   }
 
-  Future<int> updateMatch(userId, Match match) async {
+  Future<int> updateMatch(userId, Partida match) async {
     await matchCollection
         .doc(username)
         .collection("Matches")
@@ -141,21 +143,6 @@ class FirestoreDatabase {
     return 0;
   }
   */
-  MatchCollection _matchListFromSnapshot(QuerySnapshot snapshot) {
-    MatchCollection matchCollection = MatchCollection();
-    for (var doc in snapshot.docs) {
-      Match match = Match.fromMap(doc.data());
-      matchCollection.insertMatchOfId(doc.id, match);
-    }
-    return matchCollection;
-  }
-
-  Future<MatchCollection> getMatchList() async {
-    QuerySnapshot snapshot =
-        await matchCollection.doc(username).collection("Matches").get();
-
-    return _matchListFromSnapshot(snapshot);
-  }
 
   /*Stream get stream {
     return matchCollection

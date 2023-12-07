@@ -90,9 +90,13 @@ class AppRouter {
                 backgroundColor: Colors.red,
               ),
               body: BlocProvider.value(
+                value: authBloc,
+                child: BlocProvider.value(
                   value: monitorBloc,
                   child: BlocProvider.value(
-                      value: manageBloc, child: const LauncherScreen())));
+                      value: manageBloc, child: const LauncherScreen()),
+                ),
+              ));
         });
 
       case "/game":
@@ -106,9 +110,12 @@ class AppRouter {
                 ),
               ),
               body: BlocProvider.value(
-                  value: monitorBloc,
-                  child: BlocProvider.value(
-                      value: manageBloc, child: const GameplayScreen())));
+                value: authBloc,
+                child: BlocProvider.value(
+                    value: monitorBloc,
+                    child: BlocProvider.value(
+                        value: manageBloc, child: const GameplayScreen())),
+              ));
         });
 
       case "/config":
@@ -122,9 +129,12 @@ class AppRouter {
                 ),
               ),
               body: BlocProvider.value(
-                  value: monitorBloc,
-                  child: BlocProvider.value(
-                      value: manageBloc, child: const GameplayScreen())));
+                value: authBloc,
+                child: BlocProvider.value(
+                    value: monitorBloc,
+                    child: BlocProvider.value(
+                        value: manageBloc, child: const GameplayScreen())),
+              ));
         });
 
       default:

@@ -1,8 +1,13 @@
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/manage_bloc.dart';
+import 'package:flutter_application_1/model/match.dart';
+import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_application_1/provider/game_logic.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';
+import 'package:flutter_application_1/screens/register_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -13,6 +18,8 @@ class GameplayScreen extends StatefulWidget {
   State<GameplayScreen> createState() => _GameplayScreenState();
 }
 
+Partida partida = Partida();
+
 class _GameplayScreenState extends State<GameplayScreen> {
   late List<bool> _showFrontSideList;
   late List<bool> _cardBlock;
@@ -21,7 +28,8 @@ class _GameplayScreenState extends State<GameplayScreen> {
   List<String> cards = [];
   bool temporaryBlock = true;
   //informacoes sobre o jogo
-  int dimension = NormalGame.helper.dropdownValue;
+  String dimension = NormalGame.helper.dropdownValue.toString();
+  final userId = FirestoreDatabase.helper.username!;
   final DateTime _now = DateTime.now();
   late DateTime dateGame;
   late int tempoUsado;
@@ -30,6 +38,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
   int _secondCard = -1;
   double minutosIniciais = 0;
   int tempo = 0;
+  int tempoMilisegundos = 0;
   bool fimTempo = false;
   final StopWatchTimer _stopWatchTimer =
       StopWatchTimer(mode: StopWatchMode.countDown);
@@ -39,7 +48,6 @@ class _GameplayScreenState extends State<GameplayScreen> {
     super.initState();
     dateGame = DateTime(
         _now.year, _now.month, _now.day, _now.hour, _now.minute, _now.second);
-    print(dateGame);
     cards = game.drawer();
     _showFrontSideList = List.generate(cards.length, (index) => false);
     _cardBlock = List.generate(cards.length, (index) => false);
@@ -57,6 +65,7 @@ class _GameplayScreenState extends State<GameplayScreen> {
       minutosIniciais = 3;
     }
     tempo = (minutosIniciais * 60).toInt();
+    tempoMilisegundos = tempo * 1000;
 
     _stopWatchTimer.setPresetTime(mSec: tempo * 1000);
   }
@@ -147,14 +156,23 @@ class _GameplayScreenState extends State<GameplayScreen> {
             final resto = value / tempo;
 
             if (_cardBlock.every((element) => element == true)) {
+              tempoUsado = tempoMilisegundos - value;
               _stopWatchTimer.onStopTimer();
-              temporaryBlock = true;
-              tempoUsado = tempo * 1000 - value;
-
+              partida.date = dateGame;
+              partida.duration = tempoUsado;
+              partida.size = dimension;
+              partida.userId = FirestoreDatabase.helper.username!;
+              partida.win = true;
+              try {
+                BlocProvider.of<ManageBloc>(context)
+                    .add(SubmitMatchEvent(match: partida));
+              } catch (e) {
+                print('Erro: $e');
+              }
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _showWinnerSnackbar(context);
               });
-              //cadastrar vitoria aqui info do banco aqui
+              temporaryBlock = true;
             } else if (value == 0) {
               temporaryBlock = true;
               WidgetsBinding.instance.addPostFrameCallback((_) {
