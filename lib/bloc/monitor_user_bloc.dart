@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../model/user.dart';
-import '../provider/firebase_firestore.dart';
 
 class MonitorBloc extends Bloc<MonitorEvent, MonitorState> {
   Usuario user = Usuario();

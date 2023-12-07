@@ -1,17 +1,21 @@
 class Usuario {
+  String _uid = "";
   String _name = "";
   String _email = "";
   String _username = "";
   String _path = "";
 
   Usuario() {
+    _uid = "";
     _name = "";
     _email = "";
     _username = "";
     _path = "";
   }
 
-  Usuario.withData({name = "", email = "", username = "", path = ""}) {
+  Usuario.withData(
+      {uid = "", name = "", email = "", username = "", path = ""}) {
+    _uid = uid;
     _name = name;
     _email = email;
     _username = username;
@@ -19,10 +23,13 @@ class Usuario {
   }
 
   Usuario.fromMap(map) {
+    _uid = map["uid"];
     _name = map["name"];
     _email = map["email"];
     _username = map["username"];
+    _path = map["path"];
   }
+  String get uid => _uid;
   String get name => _name;
   String get email => _email;
   String get username => _username;
@@ -54,6 +61,7 @@ class Usuario {
 
   toMap() {
     var map = <String, dynamic>{};
+    map["uid"] = _uid;
     map["username"] = _username;
     map["name"] = _name;
     map["email"] = _email;

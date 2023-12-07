@@ -17,9 +17,11 @@ class UserCollection {
   Usuario getUserAtIndex(int index) {
     Usuario user = userList[index];
     return Usuario.withData(
+      uid: user.uid,
       name: user.name,
       email: user.email,
       username: user.username,
+      path: user.path,
     );
   }
 
@@ -43,17 +45,21 @@ class UserCollection {
     int index = getIndexOfId(id);
     if (index != -1) {
       userList[index] = Usuario.withData(
+        uid: user.uid,
         name: user.name,
         email: user.email,
         username: user.username,
+        path: user.path,
       );
     } else {
       idList.add(id);
       userList.add(
         Usuario.withData(
+          uid: user.uid,
           name: user.name,
           email: user.email,
           username: user.username,
+          path: user.path,
         ),
       );
     }
@@ -63,9 +69,11 @@ class UserCollection {
     int index = getIndexOfId(id);
     if (index != -1) {
       userList[index] = Usuario.withData(
+        uid: user.uid,
         name: user.name,
         email: user.email,
         username: user.username,
+        path: user.path,
       );
     }
   }
@@ -82,9 +90,11 @@ class UserCollection {
     idList.add(id);
     userList.add(
       Usuario.withData(
+        uid: user.uid,
         name: user.name,
         email: user.email,
         username: user.username,
+        path: user.path,
       ),
     );
   }
