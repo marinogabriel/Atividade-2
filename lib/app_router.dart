@@ -42,7 +42,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Register Screen"),
+              title: const Text("Cadastre-se!"),
               backgroundColor: Colors.red,
             ),
             body: BlocProvider.value(
@@ -68,7 +68,7 @@ class AppRouter {
                 child: BlocProvider.value(
                     value: monitorBloc,
                     child: BlocProvider.value(
-                        value: manageBloc, child: ProfileScreen())),
+                        value: manageBloc, child: const ProfileScreen())),
               ));
         });
 
@@ -77,7 +77,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(
-                title: const Text("Profile Screen"),
+                title: const Text("Escolha o tamanho do tabuleiro!"),
                 backgroundColor: Colors.red,
               ),
               body: BlocProvider.value(
@@ -87,6 +87,22 @@ class AppRouter {
         });
 
       case "/game":
+        return MaterialPageRoute(builder: (_) {
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+                title: const Text(
+                  "Jogo",
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                ),
+              ),
+              body: BlocProvider.value(
+                  value: monitorBloc,
+                  child: BlocProvider.value(
+                      value: manageBloc, child: const GameplayScreen())));
+        });
+
+      case "/config":
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(

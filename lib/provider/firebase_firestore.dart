@@ -18,6 +18,8 @@ class FirestoreDatabase {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("Users");
 
+  final CollectionReference matchesCollection =
+      FirebaseFirestore.instance.collection("Matches");
   Future<int> insertUser(Usuario user) async {
     DocumentReference ref = await userCollection.add({
       "name": user.name,
