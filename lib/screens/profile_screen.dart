@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/bloc/monitor_user_bloc.dart';
 import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,8 +26,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     Size size = MediaQuery.of(context).size;
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-    return Scaffold(
-        body: Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -308,7 +306,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ],
-    ));
+    );
   }
 
   Widget logoutButton() {

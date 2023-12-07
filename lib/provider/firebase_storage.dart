@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageServer {
@@ -9,10 +8,10 @@ class StorageServer {
 
   Reference avatarImage = FirebaseStorage.instance.ref().child("avatars");
 
-  UploadTask? insertImage(String uid, String noteId, String path) {
+  Future<String>? getImage(String name) {
     try {
-      var ref = avatarImage.child(uid).child(noteId + ".jpg");
-      return ref.putFile(File(path));
+      var ref = avatarImage.child(name);
+      return ref.getDownloadURL();
     } on FirebaseException {
       return null;
     }
