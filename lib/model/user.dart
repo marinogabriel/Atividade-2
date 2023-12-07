@@ -2,17 +2,20 @@ class Usuario {
   String _name = "";
   String _email = "";
   String _username = "";
+  String _path = "";
 
   Usuario() {
     _name = "";
     _email = "";
     _username = "";
+    _path = "";
   }
 
-  Usuario.withData({name = "", email = "", username = ""}) {
+  Usuario.withData({name = "", email = "", username = "", path = ""}) {
     _name = name;
     _email = email;
     _username = username;
+    _path = "";
   }
 
   Usuario.fromMap(map) {
@@ -23,6 +26,7 @@ class Usuario {
   String get name => _name;
   String get email => _email;
   String get username => _username;
+  String get path => _path;
 
   set name(String newName) {
     if (newName.isNotEmpty) {
@@ -42,12 +46,19 @@ class Usuario {
     }
   }
 
+  set path(String newPath) {
+    if (newPath.isNotEmpty) {
+      _path = newPath;
+    }
+  }
+
   toMap() {
     var map = <String, dynamic>{};
     map["username"] = _username;
     map["name"] = _name;
     map["email"] = _email;
     map["username"] = _username;
+    map["path"] = _path;
     return map;
   }
 }

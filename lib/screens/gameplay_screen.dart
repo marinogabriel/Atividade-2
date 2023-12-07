@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/game_logic.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';

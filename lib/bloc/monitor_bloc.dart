@@ -12,8 +12,6 @@ class MonitorBloc extends Bloc<MonitorEvent, MonitorState> {
     /**/
 
     on<AskNewList>((event, emit) async {
-      //userCollection = await RestDataProvider.helper.getUserList();
-      //userCollection = await LocalProvider.helper.getUserList();
       userCollection = await FirestoreDatabase.helper.getUserList();
       emit(MonitorState(userCollection: userCollection));
     });
@@ -22,13 +20,13 @@ class MonitorBloc extends Bloc<MonitorEvent, MonitorState> {
       emit(MonitorState(userCollection: userCollection));
     });
 
-    on<UpdateStreamSubscription>((event, emit) {
+    /*on<UpdateStreamSubscription>((event, emit) {
       subscription?.cancel();
       subscription = FirestoreDatabase.helper.stream.listen((event) {
         userCollection = event;
         add(UpdateList());
       });
-    });
+    });*/
     add(AskNewList());
   }
 }

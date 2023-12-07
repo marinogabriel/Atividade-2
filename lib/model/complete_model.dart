@@ -6,10 +6,10 @@ class CompleteModel {
   int radioValue2 = 1;
   int bottomSheetChoice = 0;
 
-  doSomething() {
+  /*doSomething() {
     print("CheckBox: $checkboxValue");
     print("Switch: $switchValue");
     print("Slider: $sliderValue");
     print("Radio: $radioValue");
-  }
+  }*/
 }

@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import '../model/users.dart';
 import 'firebase_storage.dart';
 
@@ -26,39 +25,36 @@ class FirestoreDatabase {
   }
 
   Future<int> insertUser(Usuario user) async {
-    DocumentReference ref = await userCollection.add(
-        {"name": user.name, "email": user.email, "username": user.username});
+    DocumentReference ref = await userCollection.add({
+      "name": user.name,
+      "email": user.email,
+      "username": user.username,
+      "path": user.path
+    });
 
-    /*if (user.username != "") {
-      UploadTask? task =
-          StorageServer.helper.insertImage(username!, ref.id, user.username);
-      if (task != null) {
-        var snapshot = await task.whenComplete(() {});
-        user.username = await snapshot.ref.getDownloadURL();
-
-        await userCollection.doc(username).collection("Users").doc(ref.id).update({
-          "name": user.name,
-          "email": user.email,
-          "username": user.username
-        });
-      }
+    if (user.path != "") {
+      await userCollection
+          .doc(username)
+          .collection("Users")
+          .doc(ref.id)
+          .update({
+        "name": user.name,
+        "email": user.email,
+        "username": user.username,
+        "path": user.path
+      });
     }
-*/
+
     return 0;
   }
 
   Future<int> updateUser(userId, Usuario user) async {
-    if (user.username != "") {
-      UploadTask? task =
-          StorageServer.helper.insertImage(username!, userId, user.username);
-      if (task != null) {
-        var snapshot = await task.whenComplete(() {});
-        user.username = await snapshot.ref.getDownloadURL();
-      }
-    }
-
-    await userCollection.doc(username).collection("Users").doc(userId).update(
-        {"name": user.name, "email": user.email, "username": user.username});
+    await userCollection.doc(username).collection("Users").doc(userId).update({
+      "name": user.name,
+      "email": user.email,
+      "username": user.username,
+      "path": user.path
+    });
     return 0;
   }
 
@@ -84,11 +80,11 @@ class FirestoreDatabase {
     return _userListFromSnapshot(snapshot);
   }
 
-  Stream get stream {
+  /*Stream get stream {
     return userCollection
         .doc(username)
         .collection("Users")
         .snapshots()
         .map(_userListFromSnapshot);
-  }
+  }*/
 }

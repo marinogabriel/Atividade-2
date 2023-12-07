@@ -1,9 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/profile_screen.dart';
-import 'package:flutter_application_1/screens/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/auth_bloc.dart';
 import '../model/complete_model.dart';
 import '../model/login_data.dart';
@@ -38,10 +35,7 @@ class LoginFormState extends State<LoginForm> {
                 );
               });
         } else if (state is Authenticated) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfileScreen()),
-          );
+          Navigator.pushNamed(context, "/profile");
         }
       },
       builder: (context, state) {

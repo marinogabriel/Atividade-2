@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/config_screen.dart';
 import 'package:flutter_application_1/screens/gameplay_screen.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 import 'package:flutter_application_1/screens/laucher_screen.dart';
@@ -62,7 +63,6 @@ class AppRouter {
               ));
         });
       case "/launcher":
-        monitorBloc.add(UpdateStreamSubscription());
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(
@@ -75,7 +75,13 @@ class AppRouter {
                       value: manageBloc, child: const LauncherScreen())));
         });
       case "/game":
-        monitorBloc.add(UpdateStreamSubscription());
+        return MaterialPageRoute(builder: (_) {
+          return BlocProvider.value(
+              value: monitorBloc,
+              child: BlocProvider.value(
+                  value: manageBloc, child: const GameplayScreen()));
+        });
+      case "/config":
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(
@@ -85,11 +91,11 @@ class AppRouter {
               body: BlocProvider.value(
                   value: monitorBloc,
                   child: BlocProvider.value(
-                      value: manageBloc, child: const GameplayScreen())));
+                      value: manageBloc, child: const ConfigScreen())));
         });
       default:
         return MaterialPageRoute(builder: (_) {
-          return const Text("ASDF");
+          return const Text("algo deu errado");
         });
     }
   }

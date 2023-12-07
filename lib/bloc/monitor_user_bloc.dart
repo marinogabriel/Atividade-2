@@ -23,14 +23,14 @@ class MonitorBloc extends Bloc<MonitorEvent, MonitorState> {
       emit(MonitorState(user: user));
     });
 
-    on<UpdateStreamSubscription>((event, emit) {
+    /*on<UpdateStreamSubscription>((event, emit) {
       subscription?.cancel();
       subscription = FirestoreDatabase.helper.stream.listen((event) {
         user = event;
         add(UpdateList());
       });
     });
-
+*/
     add(AskNewList());
   }
 }

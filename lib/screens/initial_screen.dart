@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -19,7 +18,7 @@ class InitialScreenState extends State<InitialScreen> {
         backgroundColor: const Color.fromARGB(255, 255, 0, 0),
         title: const Text(
           "Página Inicial",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Row(
