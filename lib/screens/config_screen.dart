@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/manage_bloc.dart';
+import '../model/user.dart';
 import '../provider/firebase_storage.dart';
 
 class ConfigScreen extends StatefulWidget {
@@ -10,6 +13,8 @@ class ConfigScreen extends StatefulWidget {
     return ConfigScreenState();
   }
 }
+
+Usuario user = Usuario();
 
 class ConfigScreenState extends State<ConfigScreen> {
   List<String> imagePathList = [];
@@ -107,7 +112,10 @@ class ConfigScreenState extends State<ConfigScreen> {
                 fontStyle: FontStyle.normal),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          user.path = imagePathList[currentIndex];
+          BlocProvider.of<ManageBloc>(context).add(SubmitEvent(user: user));
+        },
       ),
     );
   }

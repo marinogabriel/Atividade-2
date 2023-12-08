@@ -39,9 +39,9 @@ class ProfileScreenState extends State<ProfileScreen> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text('Something went wrong');
+              return const Text('Something went wrong');
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading...");
+              return const Text("Loading...");
             } else {
               var document = snapshot.data!.docs.first;
               var username = document['username'];
