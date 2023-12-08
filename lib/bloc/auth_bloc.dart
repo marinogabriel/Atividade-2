@@ -22,14 +22,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<LoginUser>((LoginUser event, emit) {
-      /*
-      if (event.password == "senha") {
+    on<LoginUser>((LoginUser event, emit) async {
+      try {
+        await authProvider.signInWithEmailAndPassword(
+            event.username, event.password);
+        // Se a operação de login for bem-sucedida, emita o estado de autenticação
         emit(Authenticated(username: event.username));
-      } else {
-        emit(AuthError(message: "Você errou a senha ${event.username}"));
-      }*/
-      authProvider.signInWithEmailAndPassword(event.username, event.password);
+      } catch (e) {
+        // Se ocorrer um erro, emita o estado de erro
+        emit(AuthError(message: "Erro ao fazer login: $e"));
+      }
     });
 
     on<RegisterUser>((RegisterUser event, emit) async {

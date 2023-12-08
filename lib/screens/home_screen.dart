@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           title: const Text(
             "BigBrain",
             style: TextStyle(
-              color: Colors.white, // Defina a cor do texto como branco
+              color: Colors.white,
             ),
           ),
         ),

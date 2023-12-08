@@ -41,10 +41,8 @@ class ConfigScreenState extends State<ConfigScreen> {
 
   Future<void> _fetchAvatarImages() async {
     try {
-      // Call the fetchAvatarImages function and await the result
       List<String>? result = await StorageServer.helper.fetchAvatarImages();
 
-      // Update the imagePathList if the result is not null
       if (result != null) {
         setState(() {
           imagePathList = result;
@@ -52,7 +50,6 @@ class ConfigScreenState extends State<ConfigScreen> {
       }
       print(result);
     } catch (e) {
-      // Handle any errors
       print("Error fetching avatar images: $e");
     }
   }

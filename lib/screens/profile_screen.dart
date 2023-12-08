@@ -139,7 +139,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                                       Map<String, dynamic> data = document
                                           .data()! as Map<String, dynamic>;
                                       if (data['win'] == 0) {
-                                        print(data);
                                         return ListTile(
                                           isThreeLine: true,
                                           leading: const Icon(

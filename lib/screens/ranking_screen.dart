@@ -17,6 +17,7 @@ final Stream<QuerySnapshot> _matchesStream = FirebaseFirestore.instance
     .collection('Matches')
     .orderBy('duration', descending: false)
     .snapshots();
+int cont2 = 0, cont4 = 0, cont6 = 0, cont8 = 0;
 
 class RankingScreenState extends State<RankingScreen> {
   @override
@@ -42,7 +43,6 @@ class RankingScreenState extends State<RankingScreen> {
 
   Widget ranking2(context) {
     Size size = MediaQuery.of(context).size;
-    int cont2 = 0;
     return SingleChildScrollView(
       child: StreamBuilder<QuerySnapshot>(
         stream: _matchesStream,
@@ -127,7 +127,6 @@ class RankingScreenState extends State<RankingScreen> {
 
   Widget ranking4(context) {
     Size size = MediaQuery.of(context).size;
-    int cont4 = 0;
     return SingleChildScrollView(
       child: StreamBuilder<QuerySnapshot>(
         stream: _matchesStream,
@@ -212,7 +211,6 @@ class RankingScreenState extends State<RankingScreen> {
 
   Widget ranking6(context) {
     Size size = MediaQuery.of(context).size;
-    int cont6 = 0;
     return SingleChildScrollView(
       child: StreamBuilder<QuerySnapshot>(
         stream: _matchesStream,
@@ -300,7 +298,6 @@ class RankingScreenState extends State<RankingScreen> {
 
   Widget ranking8(context) {
     Size size = MediaQuery.of(context).size;
-    int cont8 = 0;
     return SingleChildScrollView(
       child: StreamBuilder<QuerySnapshot>(
         stream: _matchesStream,

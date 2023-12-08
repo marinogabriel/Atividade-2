@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -220,7 +221,6 @@ class LoginFormState extends State<LoginForm> {
           ),
           onPressed: () {
             if (formKey.currentState!.validate()) {
-              print("tentativa de login");
               formKey.currentState!.save();
               BlocProvider.of<AuthBloc>(context).add(
                 LoginUser(

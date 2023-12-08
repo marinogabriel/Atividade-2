@@ -21,7 +21,8 @@ class AppRouter {
     switch (route.name) {
       case "/":
         return MaterialPageRoute(builder: (_) {
-          return const InitialScreen();
+          return BlocProvider.value(
+              value: authBloc, child: const InitialScreen());
         });
 
       case "/login":
