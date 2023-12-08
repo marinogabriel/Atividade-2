@@ -31,20 +31,10 @@ class _LauncherScreenState extends State<LauncherScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Tem coragem de apostar suas moedas?',
+          'Escolha a dimensão do tabuleiro:',
           style: GoogleFonts.poppins(
             color: const Color(0xff1D1617),
             fontSize: size.height * 0.02,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: size.height * 0.1),
-          child: Text(
-            "Escolha a quantidade de moedas que deseja usar na mesa:",
-            style: TextStyle(
-              color: const Color(0xffADA4A5),
-              fontSize: size.height * 0.018,
-            ),
           ),
         ),
         Padding(
@@ -53,7 +43,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Escolha a dimensão do tabuleiro:",
+                "",
                 style: TextStyle(
                   color: const Color(0xffADA4A5),
                   fontSize: size.height * 0.018,
@@ -63,17 +53,6 @@ class _LauncherScreenState extends State<LauncherScreen> {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: size.height * 0.08),
-          child: Text(
-            '${sliderValue.toStringAsFixed(0)} moedas',
-            style: TextStyle(
-              color: const Color(0xffADA4A5),
-              fontSize: size.height * 0.015,
-            ),
-          ),
-        ),
-        mySlider(),
         submitButton()
       ],
     );
@@ -113,18 +92,6 @@ class _LauncherScreenState extends State<LauncherScreen> {
           child: Text(value),
         );
       }).toList(),
-    );
-  }
-
-  Widget mySlider() {
-    return Slider(
-      min: 0,
-      max: 200,
-      value: completeModel.sliderValue,
-      onChanged: (double inValue) {
-        sliderValue = inValue;
-        setState(() => completeModel.sliderValue = inValue);
-      },
     );
   }
 

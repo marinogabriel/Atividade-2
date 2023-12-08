@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,6 +23,15 @@ class ProfileScreenState extends State<ProfileScreen> {
         'email',
         isEqualTo: FirebaseAuth.instance.currentUser?.email,
       )
+      .snapshots();
+
+  final Stream<QuerySnapshot> _matchesStream = FirebaseFirestore.instance
+      .collection('Matches')
+      .where(
+        'email',
+        isEqualTo: FirebaseAuth.instance.currentUser?.email,
+      )
+      .orderBy('date', descending: true)
       .snapshots();
 
   @override
@@ -199,44 +210,11 @@ class ProfileScreenState extends State<ProfileScreen> {
       child: Text(
         message,
         textAlign: TextAlign.justify,
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontStyle: FontStyle.normal,
-          fontWeight: FontWeight.w500,
-          fontSize: size.height * 0.013,
+        style: GoogleFonts.poppins(
+          color: const Color(0xff1D1617),
+          fontSize: size.height * 0.02,
         ),
       ),
     );
   }
 }
-
-
-//ListView dinâmica
-/*ListView getUserListView(UserCollection userCollection) {
-  return ListView.builder(
-    itemCount: userCollection.length(),
-    itemBuilder: (context, position) => ListTile(
-      onTap: () {
-        //print(userCollection.getIdAtIndex(position));
-        BlocProvider.of<ManageBloc>(context).add(UpdateRequest(
-          userId: userCollection.getIdAtIndex(position),
-          previousUser: userCollection.getUserAtIndex(position),
-        ));
-      },
-      leading: SizedBox(
-        height: 40,
-        width: 40,
-        child: Image.network(userCollection.getUserAtIndex(position).username),
-      ),
-      trailing: GestureDetector(
-          onTap: () {
-            BlocProvider.of<ManageBloc>(context).add(
-                DeleteEvent(userId: userCollection.getIdAtIndex(position)));
-          },
-          child: const Icon(Icons.delete)),
-      title: Text(userCollection.getUserAtIndex(position).name),
-      subtitle: Text(userCollection.getUserAtIndex(position).email),
-    ),
-  );
-}
-*/
