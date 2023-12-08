@@ -10,7 +10,7 @@ class StorageServer {
 
   Reference avatarImage = FirebaseStorage.instance.ref().child("avatars");
 
-  Future<List<String>?> fetchAvatarImages() async {
+  Future<List<String>> fetchAvatarImages() async {
     try {
       final listResult = await avatarImage.listAll();
       List<String>? urlList = [];
@@ -24,7 +24,7 @@ class StorageServer {
     } catch (e, stackTrace) {
       print("Error fetching avatar images: $e");
       print("Stack trace: $stackTrace");
-      return null;
+      return [];
     }
   }
 

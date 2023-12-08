@@ -14,15 +14,22 @@ class HomeScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           bottom: const TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.linked_camera)),
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(Icons.star)),
+              Tab(icon: Icon(Icons.settings)),
             ],
           ),
-          title: const Text('BigBrain'),
+          backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+          title: const Text(
+            "BigBrain",
+            style: TextStyle(
+              color: Colors.white, // Defina a cor do texto como branco
+            ),
+          ),
         ),
         body: const TabBarView(
           children: [

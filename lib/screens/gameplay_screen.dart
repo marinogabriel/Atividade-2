@@ -419,7 +419,6 @@ class _GameplayScreenState extends State<GameplayScreen> {
               } catch (e) {
                 print('Erro: $e');
               }
-
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             }

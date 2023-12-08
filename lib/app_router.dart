@@ -30,7 +30,10 @@ class AppRouter {
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 255, 0, 0),
               title: const Text(
-                "Login",
+                "Entrar",
+                style: TextStyle(
+                  color: Colors.white, // Defina a cor do texto como branco
+                ),
               ),
             ),
             body: BlocProvider.value(value: authBloc, child: const LoginForm()),
@@ -41,7 +44,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Cadastre-se!"),
+              title: const Text(
+                "Registrar",
+                style: TextStyle(
+                  color: Colors.white, // Defina a cor do texto como branco
+                ),
+              ),
               backgroundColor: Colors.red,
             ),
             body: BlocProvider.value(
@@ -84,7 +92,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
               appBar: AppBar(
-                title: const Text("Escolha o tamanho do tabuleiro!"),
+                title: const Text(
+                  "Escolhendo a dimensão",
+                  style: TextStyle(
+                    color: Colors.white, // Defina a cor do texto como branco
+                  ),
+                ),
                 backgroundColor: Colors.red,
               ),
               body: BlocProvider.value(
@@ -122,7 +135,7 @@ class AppRouter {
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 255, 0, 0),
                 title: const Text(
-                  "Jogo",
+                  "Configuração",
                   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                 ),
               ),

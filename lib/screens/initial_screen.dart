@@ -18,7 +18,7 @@ class InitialScreenState extends State<InitialScreen> {
         backgroundColor: const Color.fromARGB(255, 255, 0, 0),
         title: const Text(
           "Página Inicial",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
       ),
       body: Row(
@@ -50,12 +50,11 @@ class InitialScreenState extends State<InitialScreen> {
                   ],
                   shape: BoxShape.circle,
                   gradient: LinearGradient(colors: [
-                    Colors.black,
-                    Colors.red,
+                    Color.fromARGB(255, 250, 250, 250),
+                    Color.fromARGB(255, 255, 255, 255),
                   ]),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(360),
                     child: Image.asset('../assets/images/BlackJackApp.png')),
               ),
               playButton(),

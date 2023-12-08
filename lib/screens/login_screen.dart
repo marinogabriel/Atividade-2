@@ -96,12 +96,11 @@ class LoginFormState extends State<LoginForm> {
                     ],
                     shape: BoxShape.circle,
                     gradient: LinearGradient(colors: [
-                      Colors.black,
-                      Colors.red,
+                      Color.fromARGB(255, 250, 250, 250),
+                      Color.fromARGB(255, 255, 255, 255),
                     ]),
                   ),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(120),
                       child: Image.asset('../assets/images/BlackJackApp.png')),
                 ),
                 Padding(
