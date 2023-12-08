@@ -207,44 +207,11 @@ class ProfileScreenState extends State<ProfileScreen> {
       child: Text(
         message,
         textAlign: TextAlign.justify,
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontStyle: FontStyle.normal,
-          fontWeight: FontWeight.w500,
-          fontSize: size.height * 0.013,
+        style: GoogleFonts.poppins(
+          color: const Color(0xff1D1617),
+          fontSize: size.height * 0.02,
         ),
       ),
     );
   }
 }
-
-
-//ListView dinâmica
-/*ListView getUserListView(UserCollection userCollection) {
-  return ListView.builder(
-    itemCount: userCollection.length(),
-    itemBuilder: (context, position) => ListTile(
-      onTap: () {
-        //print(userCollection.getIdAtIndex(position));
-        BlocProvider.of<ManageBloc>(context).add(UpdateRequest(
-          userId: userCollection.getIdAtIndex(position),
-          previousUser: userCollection.getUserAtIndex(position),
-        ));
-      },
-      leading: SizedBox(
-        height: 40,
-        width: 40,
-        child: Image.network(userCollection.getUserAtIndex(position).username),
-      ),
-      trailing: GestureDetector(
-          onTap: () {
-            BlocProvider.of<ManageBloc>(context).add(
-                DeleteEvent(userId: userCollection.getIdAtIndex(position)));
-          },
-          child: const Icon(Icons.delete)),
-      title: Text(userCollection.getUserAtIndex(position).name),
-      subtitle: Text(userCollection.getUserAtIndex(position).email),
-    ),
-  );
-}
-*/
