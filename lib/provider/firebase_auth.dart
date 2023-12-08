@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthenticationProvider {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   get stream {
     return _auth.authStateChanges().map((User? event) => event?.email);

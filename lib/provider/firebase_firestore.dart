@@ -1,6 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../model/matches.dart';
 import '../model/users.dart';
 import 'firebase_storage.dart';
 
@@ -24,7 +21,12 @@ class FirestoreDatabase {
 
   //USERS
   Future<int> insertUser(Usuario user) async {
-    DocumentReference ref = await userCollection.add({
+    DocumentReference ref = await userCollection
+        .doc(username)
+        .collection(
+          "Usuarios",
+        )
+        .add({
       "name": user.name,
       "email": user.email,
       "username": user.username,
@@ -34,7 +36,7 @@ class FirestoreDatabase {
     if (user.path != "") {
       await userCollection
           .doc(username)
-          .collection("Users")
+          .collection("Usuarios")
           .doc(ref.id)
           .update({
         "name": user.name,
@@ -48,7 +50,11 @@ class FirestoreDatabase {
   }
 
   Future<int> updateUser(email, Usuario user) async {
-    await userCollection.doc(username).collection("Users").doc(email).update({
+    await userCollection
+        .doc(username)
+        .collection("Usuarios")
+        .doc(email)
+        .update({
       "name": user.name,
       "email": user.email,
       "username": user.username,
@@ -58,7 +64,11 @@ class FirestoreDatabase {
   }
 
   Future<int> deleteUser(email) async {
-    await userCollection.doc(username).collection("Users").doc(email).delete();
+    await userCollection
+        .doc(username)
+        .collection("Usuarios")
+        .doc(email)
+        .delete();
     StorageServer.helper.deleteImage(username!, email);
     return 0;
   }
@@ -74,7 +84,7 @@ class FirestoreDatabase {
 
   Future<UserCollection> getUserList() async {
     QuerySnapshot snapshot =
-        await userCollection.doc(username).collection("Users").get();
+        await userCollection.doc(username).collection("Usuarios").get();
 
     return _userListFromSnapshot(snapshot);
   }

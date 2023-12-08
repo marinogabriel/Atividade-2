@@ -13,6 +13,10 @@ class ManageBloc extends Bloc<ManageEvent, ManageState> {
       emit(InsertState());
     });
 
+    // on<UpdateProfile>((event, emit) {
+
+    // })
+
     on<SubmitEvent>((event, emit) {
       if (state is InsertState) {
         FirestoreDatabase.helper.insertUser(event.user);
@@ -59,6 +63,12 @@ class UpdateRequest extends ManageEvent {
   Usuario previousUser;
   UpdateRequest({required this.userId, required this.previousUser});
 }
+
+// class UpdateProfile extends ManageEvent{
+//   String path;
+//   Usuario user;
+//   UpdateProfile({required this.path, required this.user});
+// }
 
 class SubmitMatchEvent extends ManageEvent {
   Partida match;

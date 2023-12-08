@@ -6,6 +6,8 @@ import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../bloc/manage_bloc.dart';
+import '../model/user.dart';
 import '../provider/firebase_storage.dart';
 
 class ConfigScreen extends StatefulWidget {
@@ -16,6 +18,8 @@ class ConfigScreen extends StatefulWidget {
     return ConfigScreenState();
   }
 }
+
+Usuario user = Usuario();
 
 class ConfigScreenState extends State<ConfigScreen> {
   List<String> imagePathList = [];
