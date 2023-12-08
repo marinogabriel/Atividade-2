@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/provider/firebase_storage.dart';
 
-import '../provider/firebase_storage.dart';
-
-class ConfigScreen extends StatefulWidget {
-  const ConfigScreen({super.key});
+class SwipeImageGallery extends StatefulWidget {
+  const SwipeImageGallery({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return ConfigScreenState();
-  }
+  _SwipeImageGalleryState createState() => _SwipeImageGalleryState();
 }
 
-class ConfigScreenState extends State<ConfigScreen> {
+class _SwipeImageGalleryState extends State<SwipeImageGallery> {
   List<String> imagePathList = [];
   int currentIndex = 0;
 
@@ -65,7 +62,7 @@ class ConfigScreenState extends State<ConfigScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.bottomCenter,
                   image: NetworkImage(imagePathList.isNotEmpty
                       ? imagePathList[currentIndex]
                       : 'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'), // use NetworkImage if it's a network image
@@ -73,41 +70,17 @@ class ConfigScreenState extends State<ConfigScreen> {
                 ),
               ),
               child: Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(5),
                 child: Column(
                   children: [
+                    // Add your additional widgets here
                     Text("ID: $currentIndex"),
-                    confirmButton(),
                   ],
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget confirmButton() {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.6),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 158, 13, 13),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(size.height * 0.05),
-          child: Text(
-            "Confirmar",
-            style: TextStyle(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                fontSize: size.height * 0.035,
-                fontStyle: FontStyle.normal),
-          ),
-        ),
-        onPressed: () {},
       ),
     );
   }

@@ -131,7 +131,7 @@ class AppRouter {
                 child: BlocProvider.value(
                     value: monitorBloc,
                     child: BlocProvider.value(
-                        value: manageBloc, child: const GameplayScreen())),
+                        value: manageBloc, child: const ConfigScreen())),
               ));
         });
 
