@@ -29,13 +29,8 @@ class _PickAFileState extends State<PickAFile> {
     }, builder: (field) {
       return Row(
         children: [
-          SizedBox(
-              width: 200,
-              height: 200,
-              child: fileBytes != null
-                  ? Image.memory(fileBytes!)
-                  : const Text("Escolha uma imagem")),
-          ElevatedButton(onPressed: pickAFile, child: const Text("PickAFile"))
+          ElevatedButton(
+              onPressed: pickAFile, child: const Text("Escolha uma imagem"))
         ],
       );
     });
