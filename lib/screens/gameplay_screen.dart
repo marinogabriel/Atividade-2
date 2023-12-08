@@ -79,15 +79,12 @@ class _GameplayScreenState extends State<GameplayScreen> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        /// need to set following properties for best effect of awesome_snackbar_content
         elevation: 0,
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
           title: 'Parabéns!',
           message: 'Você ganhou!',
-
-          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
           contentType: ContentType.success,
         ),
       ));
@@ -97,15 +94,12 @@ class _GameplayScreenState extends State<GameplayScreen> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        /// need to set following properties for best effect of awesome_snackbar_content
         elevation: 0,
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
           title: 'Que pena!',
           message: 'Você perdeu!',
-
-          /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
           contentType: ContentType.failure,
         ),
       ));
@@ -174,10 +168,22 @@ class _GameplayScreenState extends State<GameplayScreen> {
               temporaryBlock = true;
             } else if (value == 0) {
               temporaryBlock = true;
+
+              tempoUsado = tempoMilisegundos - value;
+              partida.date = dateGame;
+              partida.duration = tempoUsado;
+              partida.size = dimension;
+              partida.email = FirestoreDatabase.helper.username!;
+              partida.win = 0;
+              try {
+                BlocProvider.of<ManageBloc>(context)
+                    .add(SubmitMatchEvent(match: partida));
+              } catch (e) {
+                print('Erro: $e');
+              }
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _showLoserSnackbar(context);
               });
-              //cadastrar derrota aqui info do banco aqui
             }
 
             return Column(
@@ -401,9 +407,21 @@ class _GameplayScreenState extends State<GameplayScreen> {
           onPressed: () {
             if (temporaryBlock) {
             } else {
+              tempoUsado = -1;
+              partida.date = dateGame;
+              partida.duration = tempoUsado;
+              partida.size = dimension;
+              partida.email = FirestoreDatabase.helper.username!;
+              partida.win = 0;
+              try {
+                BlocProvider.of<ManageBloc>(context)
+                    .add(SubmitMatchEvent(match: partida));
+              } catch (e) {
+                print('Erro: $e');
+              }
+
               Navigator.of(context).pop();
               Navigator.of(context).pop();
-              //cadastrar derrota aqui
             }
           },
         ),

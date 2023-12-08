@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../model/matches.dart';
 import '../model/users.dart';
 import 'firebase_storage.dart';

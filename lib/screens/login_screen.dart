@@ -225,7 +225,7 @@ class LoginFormState extends State<LoginForm> {
               formKey.currentState!.save();
               BlocProvider.of<AuthBloc>(context).add(
                 LoginUser(
-                  email: loginData.email,
+                  username: loginData.email,
                   password: loginData.password,
                 ),
               );

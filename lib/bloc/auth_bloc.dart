@@ -1,80 +1,83 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../provider/firebase_auth.dart';
-import '../model/user_model.dart';
 import '../provider/firebase_firestore.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final FirebaseAuthenticationService _authenticationService =
-      FirebaseAuthenticationService();
+  FirebaseAuthenticationProvider authProvider =
+      FirebaseAuthenticationProvider();
 
   AuthBloc() : super(Unauthenticated()) {
-    _authenticationService.user.listen((event) {
-      add(AuthServerEvent(event));
+    authProvider.stream.listen((event) {
+      add(AuthServerEvent(username: event));
     });
 
     on<AuthServerEvent>((event, emit) {
-      if (event.user == null) {
+      if (event.username == null) {
+        FirestoreDatabase.helper.username = "default_user";
         emit(Unauthenticated());
       } else {
-        FirestoreDatabase.helper.username = event.user!.email;
-        emit(Authenticated(user: event.user!));
+        FirestoreDatabase.helper.username = event.username;
+        emit(Authenticated(username: event.username!));
       }
     });
 
-    on<RegisterUser>((event, emit) async {
-      try {
-        await _authenticationService.createUserWithEmailAndPassword(
-            event.email, event.password);
-      } catch (e) {
-        emit(AuthError(message: "Impossível Registrar: ${e.toString()}"));
-      }
+    on<LoginUser>((LoginUser event, emit) {
+      /*
+      if (event.password == "senha") {
+        emit(Authenticated(username: event.username));
+      } else {
+        emit(AuthError(message: "Você errou a senha ${event.username}"));
+      }*/
+      authProvider.signInWithEmailAndPassword(event.username, event.password);
     });
 
-    on<LoginUser>((event, emit) async {
+    on<RegisterUser>((RegisterUser event, emit) async {
       try {
-        await _authenticationService.signInWithEmailAndPassword(
-            event.email, event.password);
+        await authProvider.createUserWithEmailandPassword(
+            event.username, event.password);
       } catch (e) {
-        emit(AuthError(
-            message: "Impossível Logar com ${event.email}: ${e.toString()}"));
+        emit(AuthError(message: e.toString()));
       }
     });
-
-    on<Logout>((event, emit) async {
-      try {
-        await _authenticationService.signOut();
-      } catch (e) {
-        emit(AuthError(message: "Impossível Efetuar Logout: ${e.toString()}"));
-      }
-    });
+    on<Logout>(
+      (Logout event, Emitter emit) {
+        authProvider.signOut();
+      },
+    );
   }
 }
 
 /*
-   Eventos
+Eventos
 */
 abstract class AuthEvent {}
 
-class RegisterUser extends AuthEvent {
-  String email;
+class LoginUser extends AuthEvent {
+  String username;
   String password;
 
-  RegisterUser({required this.email, required this.password});
+  LoginUser({
+    this.username = "",
+    this.password = "",
+  });
 }
 
-class LoginUser extends AuthEvent {
-  String email;
+class RegisterUser extends AuthEvent {
+  String username;
   String password;
 
-  LoginUser({required this.email, required this.password});
+  RegisterUser({
+    this.username = "",
+    this.password = "",
+  });
 }
 
 class Logout extends AuthEvent {}
 
 class AuthServerEvent extends AuthEvent {
-  final UserModel? user;
-  AuthServerEvent(this.user);
+  String? username;
+  AuthServerEvent({this.username});
 }
 
 /*
@@ -86,12 +89,13 @@ abstract class AuthState {}
 class Unauthenticated extends AuthState {}
 
 class Authenticated extends AuthState {
-  UserModel user;
-  Authenticated({required this.user});
+  String username;
+
+  Authenticated({this.username = ""});
 }
 
 class AuthError extends AuthState {
-  final String message;
+  String message;
 
-  AuthError({required this.message});
+  AuthError({this.message = ""});
 }

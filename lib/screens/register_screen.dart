@@ -320,7 +320,7 @@ class RegisterFormState extends State<RegisterForm> {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
               BlocProvider.of<AuthBloc>(context).add(RegisterUser(
-                email: registerData.email,
+                username: registerData.email,
                 password: registerData.password,
               ));
               //user.uid = FirestoreDatabase.helper.uid!;
