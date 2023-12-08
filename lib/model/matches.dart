@@ -2,7 +2,7 @@ import 'match.dart';
 
 class MatchCollection {
   List<String> idList = [];
-  List<Match> matchList = [];
+  List<Partida> matchList = [];
 
   MatchCollection() {
     idList = [];
@@ -13,16 +13,15 @@ class MatchCollection {
     return idList.length;
   }
 
-  // index é a posição da match
-  // Match getMatchAtIndex(int index) {
-  //   Match match = matchList[index];
-  //   return Match.withData(
-  //       userId: match.userId,
-  //       size: match.size,
-  //       date: match.date,
-  //       duration: match.duration,
-  //       win: match.win);
-  // }
+  Partida getMatchAtIndex(int index) {
+    Partida match = matchList[index];
+    return Partida.withData(
+        email: match.email,
+        size: match.size,
+        date: match.date,
+        duration: match.duration,
+        win: match.win);
+  }
 
   String getIdAtIndex(int index) {
     return idList[index];
@@ -30,67 +29,67 @@ class MatchCollection {
 
   int getIndexOfId(String id) {
     return idList.indexOf(id);
-    /*
-    for (int i = 0; i < idList.length; i++) {
-      if (id == idList[i]) {
-        return i;
-      }
-    }*/
+
+    // for (int i = 0; i < idList.length; i++) {
+    //   if (id == idList[i]) {
+    //     return i;
+    //   }
+    // }
 
     // return -1;
   }
 
-  // updateOrInsertMatchOfId(String id, Match match) {
-  //   int index = getIndexOfId(id);
-  //   if (index != -1) {
-  //     matchList[index] = Match.withData(
-  //         userId: match.userId,
-  //         size: match.size,
-  //         date: match.date,
-  //         duration: match.duration,
-  //         win: match.win);
-  //   } else {
-  //     idList.add(id);
-  //     matchList.add(
-  //       Match.withData(
-  //           userId: match.userId,
-  //           size: match.size,
-  //           date: match.date,
-  //           duration: match.duration,
-  //           win: match.win),
-  //     );
-  //   }
-  // }
+  updateOrInsertMatchOfId(String id, Partida match) {
+    int index = getIndexOfId(id);
+    if (index != -1) {
+      matchList[index] = Partida.withData(
+          email: match.email,
+          size: match.size,
+          date: match.date,
+          duration: match.duration,
+          win: match.win);
+    } else {
+      idList.add(id);
+      matchList.add(
+        Partida.withData(
+            email: match.email,
+            size: match.size,
+            date: match.date,
+            duration: match.duration,
+            win: match.win),
+      );
+    }
+  }
 
-  // updateMatchOfId(String id, Match match) {
-  //   int index = getIndexOfId(id);
-  //   if (index != -1) {
-  //     matchList[index] = Match.withData(
-  //         userId: match.userId,
-  //         size: match.size,
-  //         date: match.date,
-  //         duration: match.duration,
-  //         win: match.win);
-  //   }
-  // }
+  updateMatchOfId(String id, Partida match) {
+    int index = getIndexOfId(id);
+    if (index != -1) {
+      matchList[index] = Partida.withData(
+          email: match.email,
+          size: match.size,
+          date: match.date,
+          duration: match.duration,
+          win: match.win);
+    }
+  }
 
-  // deleteMatchOfId(String id) {
-  //   int index = getIndexOfId(id);
-  //   if (index != -1) {
-  //     matchList.removeAt(index);
-  //     idList.removeAt(index);
-  //   }
-  // }
+  deleteMatchOfId(String id) {
+    int index = getIndexOfId(id);
+    if (index != -1) {
+      matchList.removeAt(index);
+      idList.removeAt(index);
+    }
+  }
 
-  // insertMatchOfId(String id, Match match) {
-  //   idList.add(id);
-  //   matchList.add(
-  //     Match.withData(
-  //         userId: match.userId,
-  //         size: match.size,
-  //         date: match.date,
-  //         duration: match.duration,
-  //         win: match.win),
-  //   );
-  // }
+  insertMatchOfId(String id, Partida match) {
+    idList.add(id);
+    matchList.add(
+      Partida.withData(
+          email: match.email,
+          size: match.size,
+          date: match.date,
+          duration: match.duration,
+          win: match.win),
+    );
+  }
 }
