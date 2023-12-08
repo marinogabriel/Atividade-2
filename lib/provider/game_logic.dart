@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/provider/normal_game.dart';
 import 'dart:math';
 
@@ -42,8 +41,6 @@ class GameLogic {
   Set<int> nums = {};
 
   List<String> drawer() {
-    Set<int> drawnCards = {};
-
     while (nums.length != (dimension * dimension) / 2) {
       nums.add(Random().nextInt(32));
     }

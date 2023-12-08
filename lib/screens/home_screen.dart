@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/config_screen.dart';
 import 'package:flutter_application_1/screens/profile_screen.dart';
+import 'package:flutter_application_1/screens/ranking_screen.dart';
 
 void main() {
   runApp(const HomeScreen());
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
         body: const TabBarView(
           children: [
             ProfileScreen(),
-            Icon(Icons.directions_transit),
+            RankingScreen(),
             ConfigScreen(),
           ],
         ),

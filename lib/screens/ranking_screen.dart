@@ -1,138 +1,459 @@
-/*import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../bloc/manage_bloc.dart';
-import '../bloc/monitor_user_bloc.dart';
-import '../model/user.dart';
-import '../model/users.dart';
-
-class DynamicListView extends StatefulWidget {
-  const DynamicListView({super.key});
-
+class RankingScreen extends StatefulWidget {
+  const RankingScreen({super.key});
   @override
-  State<DynamicListView> createState() => _DynamicListViewState();
+  State<StatefulWidget> createState() {
+    return RankingScreenState();
+  }
 }
 
-class _DynamicListViewState extends State<DynamicListView> {
-  String title = "";
+final Stream<QuerySnapshot> _matchesStream2 = FirebaseFirestore.instance
+    .collection('Matches')
+    .where(
+      'size',
+      isEqualTo: 2,
+    )
+    .where(
+      'win',
+      isEqualTo: 1,
+    )
+    .orderBy('duration', descending: false)
+    .snapshots();
 
-  String description = "";
+final Stream<QuerySnapshot> _matchesStream4 = FirebaseFirestore.instance
+    .collection('Matches')
+    .where(
+      'size',
+      isEqualTo: 4,
+    )
+    .where(
+      'win',
+      isEqualTo: 1,
+    )
+    .orderBy('duration', descending: false)
+    .snapshots();
 
-  final GlobalKey<FormState> formKeySubmit = GlobalKey<FormState>();
+final Stream<QuerySnapshot> _matchesStream6 = FirebaseFirestore.instance
+    .collection('Matches')
+    .where(
+      'size',
+      isEqualTo: 6,
+    )
+    .where(
+      'win',
+      isEqualTo: 1,
+    )
+    .orderBy('duration', descending: false)
+    .snapshots();
+final Stream<QuerySnapshot> _matchesStream8 = FirebaseFirestore.instance
+    .collection('Matches')
+    .where(
+      'size',
+      isEqualTo: 8,
+    )
+    .where(
+      'win',
+      isEqualTo: 1,
+    )
+    .orderBy('duration', descending: false)
+    .snapshots();
 
+class RankingScreenState extends State<RankingScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  late final String documentId;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageBloc, ManageState>(
-        builder: (BuildContext context, ManageState state) {
-      if (state is UpdateState) {
-        name = state.previousUser.name;
-        description = state.previousUser.description;
-        return Form(
-          key: formKeySubmit,
-          child: Column(
-            children: [
-              titleFormField(),
-              descriptionFormField(),
-              ElevatedButton(
-                onPressed: () {
-                  if (formKeySubmit.currentState!.validate()) {
-                    formKeySubmit.currentState!.save();
-                    BlocProvider.of<ManageBloc>(context).add(SubmitEvent(
-                        note: Usuario.withData(
-                      title: title,
-                      description: description,
-                    )));
-                  }
-                },
-                child: const Text("Submit"),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<ManageBloc>(context).add(UpdateCancel());
-                  },
-                  child: const Text("Cancel Update")),
-            ],
+    Size size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ranking2(context),
+          Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
+          ranking4(context),
+          Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
+          ranking6(context),
+          Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
+          ranking8(context),
+          logoutButton()
+        ],
+      ),
+    );
+  }
+
+  Widget logoutButton() {
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding: EdgeInsets.only(top: size.height * 0.020),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 255, 0, 38),
           ),
-        );
-      } else {
-        return BlocBuilder<MonitorBloc, MonitorState>(
-          builder: (BuildContext context, MonitorState state) {
-            return getUserListView(state.userCollection);
-          },
-        );
-      }
-    });
-  }
-
-  ListView getUserListView(UserCollection userCollection) {
-    return ListView.builder(
-        itemCount: userCollection.length(),
-        itemBuilder: (context, position) => ListTile(
-              onTap: () {
-                //print(userCollection.getIdAtIndex(position));
-                BlocProvider.of<ManageBloc>(context).add(UpdateRequest(
-                  userId: userCollection.getIdAtIndex(position),
-                  previousUser: userCollection.getUserAtIndex(position),
-                ));
-              },
-              leading: SizedBox(
-                height: 40,
-                width: 40,
-                child:
-                    Image.network(userCollection.getUsuarioAtIndex(position).path),
-              ),
-              trailing: GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<ManageBloc>(context).add(DeleteEvent(
-                        noteId: userCollection.getIdAtIndex(position)));
-                  },
-                  child: const Icon(Icons.delete)),
-              title: Text(userCollection.getUsuarioAtIndex(position).title),
-              subtitle:
-                  Text(userCollection.getUsuarioAtIndex(position).description),
-            ));
-  }
-
-  Widget titleFormField() {
-    return TextFormField(
-      initialValue: title,
-      validator: (String? inValue) {
-        if (inValue != null) {
-          if (inValue.isEmpty) {
-            return "Insira um title";
-          }
-        }
-        return null;
-      },
-      onSaved: (String? inValue) {
-        title = inValue ?? "";
-      },
-      decoration: const InputDecoration(
-        hintText: "Meu Título",
-        labelText: "Título",
-      ),
+          child: Padding(
+            padding: EdgeInsets.all(size.height * 0.010),
+            child: Text(
+              "Sair",
+              style: TextStyle(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  fontSize: size.height * 0.013,
+                  fontStyle: FontStyle.normal),
+            ),
+          ),
+          onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(
+              Logout(),
+            );
+            Navigator.pop(context);
+            Navigator.pop(context);
+          }),
     );
   }
+}
 
-  Widget descriptionFormField() {
-    return TextFormField(
-      initialValue: description,
-      keyboardType: TextInputType.emailAddress,
-      validator: (String? inValue) {
-        if (inValue != null) {
-          if (inValue.isEmpty) {
-            return "Insira uma descrição";
-          }
+Widget ranking2(context) {
+  Size size = MediaQuery.of(context).size;
+  return SingleChildScrollView(
+    child: StreamBuilder<QuerySnapshot>(
+      stream: _matchesStream2,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print('Error in stream: $snapshot');
+          return const Text('Something went wrong');
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
+        } else {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: size.width * 0.03),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ranking 2x2",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 177, 48, 39),
+                          fontSize: size.height * 0.025,
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: ListView(
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return ListTile(
+                              isThreeLine: true,
+                              leading: const Icon(
+                                Icons.done,
+                                color: Colors.lightGreen,
+                              ),
+                              title: Text(
+                                'Data: ${(data['date'] as Timestamp).toDate()}',
+                              ),
+                              subtitle: Text(
+                                // ignore: prefer_interpolation_to_compose_strings
+                                '${'Tempo Usado: ${Duration(milliseconds: data['duration']).toString().substring(0, 10)}\nModo: ' + data['size']}x' +
+                                    data['size'],
+                              ),
+                              trailing: Text(
+                                'Vitória',
+                                style: GoogleFonts.permanentMarker(
+                                  color: Colors.lightGreen,
+                                  fontSize: size.height * 0.02,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
         }
-        return null;
       },
-      onSaved: (String? inValue) {
-        description = inValue ?? "";
+    ),
+  );
+}
+
+Widget ranking4(context) {
+  Size size = MediaQuery.of(context).size;
+  return SingleChildScrollView(
+    child: StreamBuilder<QuerySnapshot>(
+      stream: _matchesStream4,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print('Error in stream: $snapshot');
+          return const Text('Something went wrong');
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
+        } else {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: size.width * 0.03),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ranking 4x4",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 177, 48, 39),
+                          fontSize: size.height * 0.025,
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: ListView(
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return ListTile(
+                              isThreeLine: true,
+                              leading: const Icon(
+                                Icons.done,
+                                color: Colors.lightGreen,
+                              ),
+                              title: Text(
+                                'Data: ${(data['date'] as Timestamp).toDate()}',
+                              ),
+                              subtitle: Text(
+                                // ignore: prefer_interpolation_to_compose_strings
+                                '${'Tempo Usado: ${Duration(milliseconds: data['duration']).toString().substring(0, 10)}\nModo: ' + data['size']}x' +
+                                    data['size'],
+                              ),
+                              trailing: Text(
+                                'Vitória',
+                                style: GoogleFonts.permanentMarker(
+                                  color: Colors.lightGreen,
+                                  fontSize: size.height * 0.02,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
       },
-      decoration: const InputDecoration(
-        hintText: "Meu Description",
-        labelText: "Description",
-      ),
-    );
-  }
-}*/
+    ),
+  );
+}
+
+Widget ranking6(context) {
+  Size size = MediaQuery.of(context).size;
+  return SingleChildScrollView(
+    child: StreamBuilder<QuerySnapshot>(
+      stream: _matchesStream6,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print('Error in stream: $snapshot');
+          return const Text('Something went wrong');
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
+        } else {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: size.width * 0.03),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ranking 6x6",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 177, 48, 39),
+                          fontSize: size.height * 0.025,
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: ListView(
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return ListTile(
+                              isThreeLine: true,
+                              leading: const Icon(
+                                Icons.done,
+                                color: Colors.lightGreen,
+                              ),
+                              title: Text(
+                                'Data: ${(data['date'] as Timestamp).toDate()}',
+                              ),
+                              subtitle: Text(
+                                // ignore: prefer_interpolation_to_compose_strings
+                                '${'Tempo Usado: ${Duration(milliseconds: data['duration']).toString().substring(0, 10)}\nModo: ' + data['size']}x' +
+                                    data['size'],
+                              ),
+                              trailing: Text(
+                                'Vitória',
+                                style: GoogleFonts.permanentMarker(
+                                  color: Colors.lightGreen,
+                                  fontSize: size.height * 0.02,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    ),
+  );
+}
+
+Widget ranking8(context) {
+  Size size = MediaQuery.of(context).size;
+  return SingleChildScrollView(
+    child: StreamBuilder<QuerySnapshot>(
+      stream: _matchesStream8,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print('Error in stream: $snapshot');
+          return const Text('Something went wrong');
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
+        } else {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: size.width * 0.03),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ranking 8x8",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 177, 48, 39),
+                          fontSize: size.height * 0.025,
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height,
+                        ),
+                        child: ListView(
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return ListTile(
+                              isThreeLine: true,
+                              leading: const Icon(
+                                Icons.done,
+                                color: Colors.lightGreen,
+                              ),
+                              title: Text(
+                                'Data: ${(data['date'] as Timestamp).toDate()}',
+                              ),
+                              subtitle: Text(
+                                // ignore: prefer_interpolation_to_compose_strings
+                                '${'Tempo Usado: ${Duration(milliseconds: data['duration']).toString().substring(0, 10)}\nModo: ' + data['size']}x' +
+                                    data['size'],
+                              ),
+                              trailing: Text(
+                                'Vitória',
+                                style: GoogleFonts.permanentMarker(
+                                  color: Colors.lightGreen,
+                                  fontSize: size.height * 0.02,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    ),
+  );
+}
+
+Widget logoutButton(context) {
+  Size size = MediaQuery.of(context).size;
+  return Padding(
+    padding: EdgeInsets.only(top: size.height * 0.020),
+    child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 255, 0, 38),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(size.height * 0.010),
+          child: Text(
+            "Sair",
+            style: TextStyle(
+                color: const Color.fromARGB(255, 255, 255, 255),
+                fontSize: size.height * 0.013,
+                fontStyle: FontStyle.normal),
+          ),
+        ),
+        onPressed: () {
+          BlocProvider.of<AuthBloc>(context).add(
+            Logout(),
+          );
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }),
+  );
+}

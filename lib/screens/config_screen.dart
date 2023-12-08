@@ -113,6 +113,9 @@ class ConfigScreenState extends State<ConfigScreen> {
           ),
         ),
         onPressed: () {
+          user.name = user.name;
+          user.email = user.email;
+          user.username = user.username;
           user.path = imagePathList[currentIndex];
           BlocProvider.of<ManageBloc>(context).add(SubmitEvent(user: user));
         },
