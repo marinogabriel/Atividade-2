@@ -21,12 +21,7 @@ class FirestoreDatabase {
 
   //USERS
   Future<int> insertUser(Usuario user) async {
-    DocumentReference ref = await userCollection
-        .doc(username)
-        .collection(
-          "Usuarios",
-        )
-        .add({
+    DocumentReference ref = await userCollection.add({
       "name": user.name,
       "email": user.email,
       "username": user.username,
