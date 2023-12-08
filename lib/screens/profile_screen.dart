@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/bloc/auth_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,6 +20,15 @@ class ProfileScreenState extends State<ProfileScreen> {
         'email',
         isEqualTo: FirebaseAuth.instance.currentUser?.email,
       )
+      .snapshots();
+
+  final Stream<QuerySnapshot> _matchesStream = FirebaseFirestore.instance
+      .collection('Matches')
+      .where(
+        'email',
+        isEqualTo: FirebaseAuth.instance.currentUser?.email,
+      )
+      .orderBy('date', descending: true)
       .snapshots();
 
   @override
@@ -40,9 +48,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
                 print('Error in stream: ${snapshot}');
-                return Text('Something went wrong');
+                return const Text('Something went wrong');
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text("Loading...");
+                return const Text("Loading...");
               } else {
                 var document = snapshot.data!.docs.first;
                 var username = document['username'];
@@ -111,12 +119,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (snapshot.hasError) {
-                                  return Text('Something went wrong');
+                                  return const Text('Something went wrong');
                                 }
 
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Text("Loading");
+                                  return const Text("Loading");
                                 }
 
                                 return Container(

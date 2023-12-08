@@ -2,11 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bloc/auth_bloc.dart';
-import 'package:flutter_application_1/provider/firebase_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../bloc/manage_bloc.dart';
 import '../model/user.dart';
 import '../provider/firebase_storage.dart';
 
@@ -80,13 +77,13 @@ class ConfigScreenState extends State<ConfigScreen> {
           GestureDetector(
             onPanUpdate: (details) {
               // Swiping in right direction.
-              if (details.delta.dx < 0) {
+              if (details.delta.dx < 1) {
                 setState(() {
                   if (currentIndex + 1 < imagePathList.length) currentIndex++;
                 });
               }
               // Swiping in left direction.
-              if (details.delta.dx > 0) {
+              if (details.delta.dx > 1) {
                 setState(() {
                   if (currentIndex > 0) currentIndex--;
                 });
