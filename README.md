@@ -1,4 +1,4 @@
-# Jogo da Memória em Flutter
+# Memory Game in Flutter
 
-Aplicativo móvel desenvolvido utilizando a linguagem Dart e o framework Flutter.
-O aplicativo além do jogo da memória possui também histórico de partidas, ranking de jogadores e se comunica os serviços de nuvem do google, o Firebase, para autenticação e banco de dados.
+Mobile App built utilizing the Dart language and the Flutter framework most importantly.
+The app, besides the game itself contains also a match history, player rankings and communicates with Google Cloud services for authentication and database. 
